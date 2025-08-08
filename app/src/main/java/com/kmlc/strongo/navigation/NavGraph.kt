@@ -5,100 +5,125 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.painterResource
-import com.kmlc.strongo.R
+import androidx.navigation.NavController
+import com.kmlc.strongo.ui.BottomNavigationBar
+import com.kmlc.strongo.ui.HideSystemBars
+import com.kmlc.strongo.ui.HomeContent
+import com.kmlc.strongo.ui.ProfileContent
+import com.kmlc.strongo.ui.ScheduleContent
+import com.kmlc.strongo.ui.WorkoutsContent
 
 enum class Screen {
-    Home, Workouts, Schedule, Profile, Settings
+    Home, Schedule, Workouts, Profile, Settings
 }
 
 @Composable
 fun StronGoNavGraph(startDestination: Screen = Screen.Home) {
+    HideSystemBars()
     val navController = rememberNavController()
     NavHost(navController, startDestination = startDestination.name) {
-        composable(Screen.Home.name) { HomeScreen() }
-        composable(Screen.Workouts.name) { /* EntrainementScreen() */ }
-        composable(Screen.Schedule.name) { /* HistoriqueScreen() */ }
-        composable(Screen.Profile.name) { /* ProfilScreen() */ }
-        composable(Screen.Settings.name) { /* ParametresScreen() */ }
+        composable(Screen.Home.name) { HomeScreen(navController, 0) }
+        composable(Screen.Schedule.name) { ScheduleScreen(navController, 1) }
+        composable(Screen.Workouts.name) { WorkoutsScreen(navController, 2) }
+        composable(Screen.Profile.name) { ProfileScreen(navController, 3) }
     }
 }
 
 @Composable
-fun HomeScreen(
-    onNavigate: (String) -> Unit = {}
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = { onNavigate("Home") },
-                modifier = Modifier.size(width = 72.dp, height = 46.dp)
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_home),
-                        contentDescription = "Home",
-                        modifier = Modifier.size(24.dp)
-                    )
+fun HomeScreen(navController: NavController, selectedIndex: Int) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        HomeContent()
+        BottomNavigationBar(
+            selectedIndex,
+            onItemSelected = { index ->
+                val screen = when (index) {
+                    0 -> Screen.Home
+                    1 -> Screen.Schedule
+                    2 -> Screen.Workouts
+                    3 -> Screen.Profile
+                    else -> Screen.Home
                 }
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = { onNavigate("Schedule")},
-                modifier = Modifier.size(width = 72.dp, height = 46.dp)
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_schedule),
-                        contentDescription = "Schedule",
-                        modifier = Modifier.size(24.dp)
-                    )
+                navController.navigate(screen.name) {
+                    popUpTo(Screen.Home.name) { inclusive = false }
+                    launchSingleTop = true
                 }
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = { onNavigate("Workouts") },
-                modifier = Modifier.size(width = 72.dp, height = 46.dp)
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_workouts),
-                        contentDescription = "Workouts",
-                        modifier = Modifier.size(24.dp)
-                    )
+            },
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
+    }
+}
+
+@Composable
+fun ScheduleScreen(navController: NavController, selectedIndex: Int) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        ScheduleContent()
+        BottomNavigationBar(
+            selectedIndex,
+            onItemSelected = { index ->
+                val screen = when (index) {
+                    0 -> Screen.Home
+                    1 -> Screen.Schedule
+                    2 -> Screen.Workouts
+                    3 -> Screen.Profile
+                    else -> Screen.Home
                 }
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = { onNavigate("Profile") },
-                modifier = Modifier.size(width = 72.dp, height = 46.dp)
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_profile),
-                        contentDescription = "Profile",
-                        modifier = Modifier.size(24.dp)
-                    )
+                navController.navigate(screen.name) {
+                    popUpTo(Screen.Schedule.name) { inclusive = false }
+                    launchSingleTop = true
                 }
-            }
-            Spacer(modifier = Modifier.weight(1f))
-        }
+            },
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
+    }
+}
+
+@Composable
+fun WorkoutsScreen(navController: NavController, selectedIndex: Int) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        WorkoutsContent()
+        BottomNavigationBar(
+            selectedIndex,
+            onItemSelected = { index ->
+                val screen = when (index) {
+                    0 -> Screen.Home
+                    1 -> Screen.Schedule
+                    2 -> Screen.Workouts
+                    3 -> Screen.Profile
+                    else -> Screen.Home
+                }
+                navController.navigate(screen.name) {
+                    popUpTo(Screen.Workouts.name) { inclusive = false }
+                    launchSingleTop = true
+                }
+            },
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
+    }
+}
+
+@Composable
+fun ProfileScreen(navController: NavController, selectedIndex: Int) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        ProfileContent()
+        BottomNavigationBar(
+            selectedIndex,
+            onItemSelected = { index ->
+                val screen = when (index) {
+                    0 -> Screen.Home
+                    1 -> Screen.Schedule
+                    2 -> Screen.Workouts
+                    3 -> Screen.Profile
+                    else -> Screen.Home
+                }
+                navController.navigate(screen.name) {
+                    popUpTo(Screen.Profile.name) { inclusive = false }
+                    launchSingleTop = true
+                }
+            },
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
     }
 }
