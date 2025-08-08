@@ -1,4 +1,4 @@
-package com.kmlc.strongo.ui
+package com.kmlc.strongo.ui.content
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

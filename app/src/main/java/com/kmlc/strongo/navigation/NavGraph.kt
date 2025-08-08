@@ -9,12 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.kmlc.strongo.ui.BottomNavigationBar
-import com.kmlc.strongo.ui.HideSystemBars
-import com.kmlc.strongo.ui.HomeContent
-import com.kmlc.strongo.ui.ProfileContent
-import com.kmlc.strongo.ui.ScheduleContent
-import com.kmlc.strongo.ui.WorkoutsContent
+import com.kmlc.strongo.ui.content.HideSystemBars
+import com.kmlc.strongo.ui.content.HomeContent
+import com.kmlc.strongo.ui.content.ProfileContent
+import com.kmlc.strongo.ui.content.ScheduleContent
+import com.kmlc.strongo.ui.content.WorkoutsContent
 
 enum class Screen {
     Home, Schedule, Workouts, Profile, Settings
