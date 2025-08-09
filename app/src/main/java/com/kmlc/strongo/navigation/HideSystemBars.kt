@@ -1,4 +1,4 @@
-package com.kmlc.strongo.ui.content
+package com.kmlc.strongo.navigation
 
 import android.app.Activity
 import android.os.Build

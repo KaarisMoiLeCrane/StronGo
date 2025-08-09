@@ -9,14 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.kmlc.strongo.ui.content.HideSystemBars
 import com.kmlc.strongo.ui.content.HomeContent
 import com.kmlc.strongo.ui.content.ProfileContent
 import com.kmlc.strongo.ui.content.ScheduleContent
 import com.kmlc.strongo.ui.content.WorkoutsContent
 
 enum class Screen {
-    Home, Schedule, Workouts, Profile, Settings
+    Home, Schedule, Workouts, Profile
 }
 
 @Composable
@@ -34,7 +33,10 @@ fun StronGoNavGraph(startDestination: Screen = Screen.Home) {
 @Composable
 fun HomeScreen(navController: NavController, selectedIndex: Int) {
     Box(modifier = Modifier.fillMaxSize()) {
-        HomeContent()
+        Column {
+            CustomStatusBar()
+            HomeContent()
+        }
         BottomNavigationBar(
             selectedIndex,
             onItemSelected = { index ->
@@ -58,7 +60,10 @@ fun HomeScreen(navController: NavController, selectedIndex: Int) {
 @Composable
 fun ScheduleScreen(navController: NavController, selectedIndex: Int) {
     Box(modifier = Modifier.fillMaxSize()) {
-        ScheduleContent()
+        Column {
+            CustomStatusBar()
+            ScheduleContent()
+        }
         BottomNavigationBar(
             selectedIndex,
             onItemSelected = { index ->
@@ -82,7 +87,10 @@ fun ScheduleScreen(navController: NavController, selectedIndex: Int) {
 @Composable
 fun WorkoutsScreen(navController: NavController, selectedIndex: Int) {
     Box(modifier = Modifier.fillMaxSize()) {
-        WorkoutsContent()
+        Column {
+            CustomStatusBar()
+            WorkoutsContent()
+        }
         BottomNavigationBar(
             selectedIndex,
             onItemSelected = { index ->
@@ -106,7 +114,10 @@ fun WorkoutsScreen(navController: NavController, selectedIndex: Int) {
 @Composable
 fun ProfileScreen(navController: NavController, selectedIndex: Int) {
     Box(modifier = Modifier.fillMaxSize()) {
-        ProfileContent()
+        Column {
+            CustomStatusBar()
+            ProfileContent()
+        }
         BottomNavigationBar(
             selectedIndex,
             onItemSelected = { index ->

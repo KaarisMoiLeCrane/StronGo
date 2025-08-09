@@ -2,6 +2,7 @@ package com.kmlc.strongo.ui.content
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,13 +38,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kmlc.strongo.R
 
 @Composable
 fun HomeContent(
     nextWorkoutLabel: String = "NEXT WORKOUT - PUSH",
-    workoutTitle: String = "Chest, Shoulders, Triceps",
+    workoutTitle: String = "Chest, Shoulders, Triceps, Abdo, T'es mort tu vas voir",
     workoutDetails: String = "59 mins • 7 exercises",
     workoutImages: List<Int> = listOf(
         R.drawable.bench_press,
@@ -75,60 +77,69 @@ fun HomeContent(
             colors = CardDefaults.cardColors(containerColor = Color(0xFF23233B)),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                // Top label
-                Box(
-                    modifier = Modifier
-                        .background(Color(0xFFEBFF00), RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                ) {
-                    Text(
-                        text = nextWorkoutLabel,
-                        color = Color(0xFF23233B),
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                }
-                Spacer(Modifier.height(12.dp))
-                // Title
-                Text(
-                    text = workoutTitle,
-                    color = Color.White,
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Spacer(Modifier.height(4.dp))
-                // Details
-                Text(
-                    text = workoutDetails,
-                    color = Color(0xFFB7B7C8),
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-                Spacer(Modifier.height(12.dp))
-                // Images
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    items(workoutImages.size) { index ->
-                        Image(
-                            painter = painterResource(id = workoutImages[index]),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(64.dp)
-                                .clip(RoundedCornerShape(16.dp)),
-                            contentScale = ContentScale.Crop
+            Column {
+                Column {
+                    // Top label
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                Color(0xFFEBFF00),
+                                RoundedCornerShape(topStart = 8.dp, bottomEnd = 8.dp)
+                            )
+                            .align(Alignment.Start)
+                            .padding(horizontal = 8.dp, vertical = 8.dp)
+                    ) {
+                        Text(
+                            text = nextWorkoutLabel,
+                            color = Color(0xFF23233B),
+                            style = MaterialTheme.typography.labelLarge,
                         )
                     }
                 }
-                Spacer(Modifier.height(16.dp))
-                // Action buttons
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    HomeScreenAction(icon = Icons.AutoMirrored.Filled.ArrowForward, label = "Skip", onClick = onSkip)
-                    HomeScreenAction(icon = Icons.Default.Refresh, label = "Regenerate", onClick = onRegenerate)
-                    HomeScreenAction(icon = Icons.Default.AccountCircle, label = "Duration", onClick = onDuration)
-                    HomeScreenAction(icon = Icons.Default.Email, label = "Share", onClick = onShare)
+                Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
+                    Spacer(Modifier.height(12.dp))
+                    // Ajoute le padding ici si besoin
+                    Text(
+                        text = workoutTitle,
+                        color = Color.White,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    // Details
+                    Text(
+                        text = workoutDetails,
+                        color = Color(0xFFB7B7C8),
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                    Spacer(Modifier.height(12.dp))
+                    // Images
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        items(workoutImages.size) { index ->
+                            Image(
+                                painter = painterResource(id = workoutImages[index]),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(64.dp)
+                                    .clip(RoundedCornerShape(16.dp)),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(16.dp))
+                    // Action buttons
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        HomeScreenAction(icon = Icons.AutoMirrored.Filled.ArrowForward, label = "Skip", onClick = onSkip)
+                        HomeScreenAction(icon = Icons.Default.Refresh, label = "Regenerate", onClick = onRegenerate)
+                        HomeScreenAction(icon = Icons.Default.AccountCircle, label = "Duration", onClick = onDuration)
+                        HomeScreenAction(icon = Icons.Default.Email, label = "Share", onClick = onShare)
+                    }
                 }
             }
         }
@@ -148,7 +159,8 @@ fun HomeContent(
                     modifier = Modifier
                         .padding(16.dp)
                         .clickable { onUpcomingWorkouts() },
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Icon(
                         imageVector = Icons.Default.DateRange,
@@ -156,10 +168,15 @@ fun HomeContent(
                         tint = Color(0xFFB7B7C8),
                         modifier = Modifier.size(32.dp)
                     )
-                    Spacer(Modifier.height(8.dp))
-                    Text("Upcoming Workouts", color = Color.White)
+                    Spacer(Modifier.height(28.dp))
+                    Text(
+                        "Upcoming Workouts",
+                        color = Color.White,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
                 }
             }
+
             // Workout Recovery
             Card(
                 modifier = Modifier.weight(1f),
@@ -170,19 +187,39 @@ fun HomeContent(
                     modifier = Modifier
                         .padding(16.dp)
                         .clickable { onWorkoutRecovery() },
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Box(contentAlignment = Alignment.Center) {
                         CircularProgressIndicator(
-                            progress = recoveryPercent / 100f,
-                            color = Color(0xFF00FFB0),
-                            strokeWidth = 4.dp,
-                            modifier = Modifier.size(32.dp)
+                            progress = { recoveryPercent / 100f },
+                            modifier = Modifier.size(48.dp),
+                            color = Color(0xFF2FBB6E),
+                            strokeWidth = 2.dp
                         )
-                        Text("$recoveryPercent", color = Color.White, style = MaterialTheme.typography.bodyMedium)
+                        Box(
+                            modifier = Modifier
+                                .size(42.5.dp)
+                                .border(
+                                    width = 0.5.dp,
+                                    color = Color(0xBFB7B7C8),
+                                    shape = CircleShape
+                                )
+                        )
+                        Text(
+                            "$recoveryPercent",
+                            color = Color.White,
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
-                    Spacer(Modifier.height(8.dp))
-                    Text("Workout Recovery", color = Color.White)
+                    Spacer(Modifier.height(28.dp))
+                    Text(
+                        "Workout Recovery",
+                        color = Color.White,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
                 }
             }
         }
