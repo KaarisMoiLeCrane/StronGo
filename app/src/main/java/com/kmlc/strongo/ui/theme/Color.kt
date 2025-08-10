@@ -9,8 +9,8 @@ val StronGoDarkCard = Color(0xFF23233B)
 // Couleurs de texte
 val StronGoDarkOnPrimary = Color.Black
 val StronGoDarkOnSecondary = Color.White
-val StronGoDarkOnTertiary = Color(0xFFF8F8F8)
-val StronGoDarkOnBackground = Color(0xFF44444F)
+val StronGoDarkOnTertiary = Color( 0xFFF8F8F8)
+val StronGoDarkOnBackground = Color(0xFFF8F8F8)
 val StronGoDarkOnSurface = Color(0xFFB7B7C8)
 
 // Couleurs d’accent et de progression
