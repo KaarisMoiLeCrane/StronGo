@@ -13,6 +13,7 @@ import com.kmlc.strongo.ui.content.HomeContent
 import com.kmlc.strongo.ui.content.ProfileContent
 import com.kmlc.strongo.ui.content.ScheduleContent
 import com.kmlc.strongo.ui.content.WorkoutsContent
+import androidx.compose.material3.Scaffold
 
 enum class Screen {
     Home, Schedule, Workouts, Profile
@@ -33,107 +34,119 @@ fun StronGoNavGraph(startDestination: Screen = Screen.Home) {
 @Composable
 fun HomeScreen(navController: NavController, selectedIndex: Int) {
     Box(modifier = Modifier.fillMaxSize()) {
-        Column {
-            CustomStatusBar()
-            HomeContent()
+        Scaffold(
+            topBar = { CustomStatusBar() },
+            bottomBar = { BottomNavigationBar(
+                selectedIndex,
+                onItemSelected = { index ->
+                    val screen = when (index) {
+                        0 -> Screen.Home
+                        1 -> Screen.Schedule
+                        2 -> Screen.Workouts
+                        3 -> Screen.Profile
+                        else -> Screen.Home
+                    }
+                    navController.navigate(screen.name) {
+                        popUpTo(Screen.Home.name) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) }
+        ) { innerPadding ->
+            HomeContent(
+                innerPadding = innerPadding
+            )
         }
-        BottomNavigationBar(
-            selectedIndex,
-            onItemSelected = { index ->
-                val screen = when (index) {
-                    0 -> Screen.Home
-                    1 -> Screen.Schedule
-                    2 -> Screen.Workouts
-                    3 -> Screen.Profile
-                    else -> Screen.Home
-                }
-                navController.navigate(screen.name) {
-                    popUpTo(Screen.Home.name) { inclusive = false }
-                    launchSingleTop = true
-                }
-            },
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
     }
 }
 
 @Composable
 fun ScheduleScreen(navController: NavController, selectedIndex: Int) {
     Box(modifier = Modifier.fillMaxSize()) {
-        Column {
-            CustomStatusBar()
-            ScheduleContent()
+        Scaffold(
+            topBar = { CustomStatusBar() },
+            bottomBar = { BottomNavigationBar(
+                selectedIndex,
+                onItemSelected = { index ->
+                    val screen = when (index) {
+                        0 -> Screen.Home
+                        1 -> Screen.Schedule
+                        2 -> Screen.Workouts
+                        3 -> Screen.Profile
+                        else -> Screen.Home
+                    }
+                    navController.navigate(screen.name) {
+                        popUpTo(Screen.Schedule.name) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) }
+        ) { innerPadding ->
+            ScheduleContent(
+                innerPadding = innerPadding
+            )
         }
-        BottomNavigationBar(
-            selectedIndex,
-            onItemSelected = { index ->
-                val screen = when (index) {
-                    0 -> Screen.Home
-                    1 -> Screen.Schedule
-                    2 -> Screen.Workouts
-                    3 -> Screen.Profile
-                    else -> Screen.Home
-                }
-                navController.navigate(screen.name) {
-                    popUpTo(Screen.Schedule.name) { inclusive = false }
-                    launchSingleTop = true
-                }
-            },
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
     }
 }
 
 @Composable
 fun WorkoutsScreen(navController: NavController, selectedIndex: Int) {
     Box(modifier = Modifier.fillMaxSize()) {
-        Column {
-            CustomStatusBar()
-            WorkoutsContent()
+        Scaffold(
+            topBar = { CustomStatusBar() },
+            bottomBar = { BottomNavigationBar(
+                selectedIndex,
+                onItemSelected = { index ->
+                    val screen = when (index) {
+                        0 -> Screen.Home
+                        1 -> Screen.Schedule
+                        2 -> Screen.Workouts
+                        3 -> Screen.Profile
+                        else -> Screen.Home
+                    }
+                    navController.navigate(screen.name) {
+                        popUpTo(Screen.Workouts.name) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) }
+        ) { innerPadding ->
+            WorkoutsContent(
+                innerPadding = innerPadding
+            )
         }
-        BottomNavigationBar(
-            selectedIndex,
-            onItemSelected = { index ->
-                val screen = when (index) {
-                    0 -> Screen.Home
-                    1 -> Screen.Schedule
-                    2 -> Screen.Workouts
-                    3 -> Screen.Profile
-                    else -> Screen.Home
-                }
-                navController.navigate(screen.name) {
-                    popUpTo(Screen.Workouts.name) { inclusive = false }
-                    launchSingleTop = true
-                }
-            },
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
     }
 }
 
 @Composable
 fun ProfileScreen(navController: NavController, selectedIndex: Int) {
     Box(modifier = Modifier.fillMaxSize()) {
-        Column {
-            CustomStatusBar()
-            ProfileContent()
+        Scaffold(
+            topBar = { CustomStatusBar() },
+            bottomBar = { BottomNavigationBar(
+                selectedIndex,
+                onItemSelected = { index ->
+                    val screen = when (index) {
+                        0 -> Screen.Home
+                        1 -> Screen.Schedule
+                        2 -> Screen.Workouts
+                        3 -> Screen.Profile
+                        else -> Screen.Home
+                    }
+                    navController.navigate(screen.name) {
+                        popUpTo(Screen.Profile.name) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) }
+        ) { innerPadding ->
+            ProfileContent(
+                innerPadding = innerPadding
+            )
         }
-        BottomNavigationBar(
-            selectedIndex,
-            onItemSelected = { index ->
-                val screen = when (index) {
-                    0 -> Screen.Home
-                    1 -> Screen.Schedule
-                    2 -> Screen.Workouts
-                    3 -> Screen.Profile
-                    else -> Screen.Home
-                }
-                navController.navigate(screen.name) {
-                    popUpTo(Screen.Profile.name) { inclusive = false }
-                    launchSingleTop = true
-                }
-            },
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
     }
 }

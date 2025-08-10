@@ -41,9 +41,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kmlc.strongo.R
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.BorderStroke
+
 
 @Composable
 fun HomeContent(
+    innerPadding: PaddingValues,
     nextWorkoutLabel: String = "NEXT WORKOUT - PUSH",
     workoutTitle: String = "Chest, Shoulders, Triceps, Abdo, T'es mort tu vas voir",
     workoutDetails: String = "59 mins • 7 exercises",
@@ -62,11 +68,13 @@ fun HomeContent(
     onUpcomingWorkouts: () -> Unit = {},
     onWorkoutRecovery: () -> Unit = {},
 ) {
-    Column(
+    Column (
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF18181C))
+            .padding(innerPadding)
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         // Card: Next Workout
         Card(
@@ -75,7 +83,8 @@ fun HomeContent(
                 .padding(bottom = 16.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = Color(0xFF23233B)),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            border = BorderStroke(0.1.dp, Color(0xAAEBFF00))
         ) {
             Column {
                 Column {
