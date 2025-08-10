@@ -4,16 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,18 +14,11 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -45,7 +29,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.BorderStroke
-
 
 @Composable
 fun HomeContent(
@@ -59,7 +42,7 @@ fun HomeContent(
         R.drawable.cable_fly,
         R.drawable.dumbbell_press,
         R.drawable.crunch
-    ), // List of drawable resource ids
+    ),
     onSkip: () -> Unit = {},
     onRegenerate: () -> Unit = {},
     onDuration: () -> Unit = {},
@@ -68,10 +51,12 @@ fun HomeContent(
     onUpcomingWorkouts: () -> Unit = {},
     onWorkoutRecovery: () -> Unit = {},
 ) {
+    val colorScheme = MaterialTheme.colorScheme
+
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF18181C))
+            .background(colorScheme.background)
             .padding(innerPadding)
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
@@ -82,9 +67,9 @@ fun HomeContent(
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
             shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFF23233B)),
+            colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            border = BorderStroke(0.1.dp, Color(0xAAEBFF00))
+            border = BorderStroke(0.1.dp, colorScheme.primary.copy())
         ) {
             Column {
                 Column {
@@ -92,7 +77,7 @@ fun HomeContent(
                     Box(
                         modifier = Modifier
                             .background(
-                                Color(0xFFEBFF00),
+                                colorScheme.primary,
                                 RoundedCornerShape(topStart = 8.dp, bottomEnd = 8.dp)
                             )
                             .align(Alignment.Start)
@@ -100,29 +85,26 @@ fun HomeContent(
                     ) {
                         Text(
                             text = nextWorkoutLabel,
-                            color = Color(0xFF23233B),
+                            color = colorScheme.onPrimary,
                             style = MaterialTheme.typography.labelLarge,
                         )
                     }
                 }
                 Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
                     Spacer(Modifier.height(12.dp))
-                    // Ajoute le padding ici si besoin
                     Text(
                         text = workoutTitle,
-                        color = Color.White,
+                        color = colorScheme.onTertiary,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.height(4.dp))
-                    // Details
                     Text(
                         text = workoutDetails,
-                        color = Color(0xFFB7B7C8),
+                        color = colorScheme.onTertiary.copy(alpha = 0.7f),
                         style = MaterialTheme.typography.bodySmall,
                     )
                     Spacer(Modifier.height(12.dp))
-                    // Images
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         modifier = Modifier.fillMaxWidth()
@@ -139,7 +121,6 @@ fun HomeContent(
                         }
                     }
                     Spacer(Modifier.height(16.dp))
-                    // Action buttons
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
@@ -162,7 +143,7 @@ fun HomeContent(
             Card(
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFF23233B))
+                colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
             ) {
                 Column(
                     modifier = Modifier
@@ -174,13 +155,13 @@ fun HomeContent(
                     Icon(
                         imageVector = Icons.Default.DateRange,
                         contentDescription = null,
-                        tint = Color(0xFFB7B7C8),
+                        tint = colorScheme.onTertiary.copy(alpha = 0.7f),
                         modifier = Modifier.size(32.dp)
                     )
                     Spacer(Modifier.height(28.dp))
                     Text(
                         "Upcoming Workouts",
-                        color = Color.White,
+                        color = colorScheme.onTertiary,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -190,7 +171,7 @@ fun HomeContent(
             Card(
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFF23233B))
+                colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
             ) {
                 Column(
                     modifier = Modifier
@@ -203,7 +184,7 @@ fun HomeContent(
                         CircularProgressIndicator(
                             progress = { recoveryPercent / 100f },
                             modifier = Modifier.size(48.dp),
-                            color = Color(0xFF2FBB6E),
+                            color = colorScheme.secondary,
                             strokeWidth = 2.dp
                         )
                         Box(
@@ -211,13 +192,13 @@ fun HomeContent(
                                 .size(42.5.dp)
                                 .border(
                                     width = 0.5.dp,
-                                    color = Color(0xBFB7B7C8),
+                                    color = colorScheme.onSurface.copy(alpha = 0.5f),
                                     shape = CircleShape
                                 )
                         )
                         Text(
                             "$recoveryPercent",
-                            color = Color.White,
+                            color = colorScheme.onTertiary,
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Bold
                         )
@@ -225,10 +206,9 @@ fun HomeContent(
                     Spacer(Modifier.height(28.dp))
                     Text(
                         "Workout Recovery",
-                        color = Color.White,
+                        color = colorScheme.onTertiary,
                         style = MaterialTheme.typography.bodyMedium
                     )
-
                 }
             }
         }
@@ -237,20 +217,21 @@ fun HomeContent(
 
 @Composable
 fun HomeScreenAction(icon: ImageVector, label: String, onClick: () -> Unit) {
+    val colorScheme = MaterialTheme.colorScheme
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         IconButton(
             onClick = onClick,
             modifier = Modifier
                 .size(56.dp)
-                .background(Color(0xFF23233B), shape = CircleShape)
+                .background(colorScheme.surface, shape = CircleShape)
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = label,
-                tint = Color(0xFFB7B7C8),
+                tint = colorScheme.onSurface.copy(alpha = 0.7f),
                 modifier = Modifier.size(32.dp)
             )
         }
-        Text(label, color = Color.White, style = MaterialTheme.typography.labelMedium)
+        Text(label, color = colorScheme.onSurface, style = MaterialTheme.typography.labelMedium)
     }
 }
