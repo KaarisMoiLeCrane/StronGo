@@ -24,9 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kmlc.strongo.R
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.shape.GenericShape
@@ -267,28 +265,28 @@ fun HomeScreenExtension(
                 .padding(horizontal = 1.dp)
         ) {
             HomeScreenCard(
+                modifier = Modifier.weight(1f),
                 icon = HomeIcon.PainterIcon(painterResource(R.drawable.auto_awesome)),
                 title = "Custom",
                 subtitle = "Create a freestyle session",
                 onClick = onCustomSession,
-                colorScheme = colorScheme,
-                modifier = Modifier.weight(1f)
+                colorScheme = colorScheme
             )
             HomeScreenCard(
+                modifier = Modifier.weight(1f),
                 icon = HomeIcon.PainterIcon(painterResource(R.drawable.bookmarks)),
                 title = "Favorites",
                 subtitle = "Pick from your saved workouts",
                 onClick = onFavorites,
-                colorScheme = colorScheme,
-                modifier = Modifier.weight(1f)
+                colorScheme = colorScheme
             )
             HomeScreenCard(
+                modifier = Modifier.weight(1f),
                 icon = HomeIcon.Vector(Icons.Default.PlayArrow),
                 title = "Empty",
                 subtitle = "Full control over your workout",
                 onClick = onEmptySession,
-                colorScheme = colorScheme,
-                modifier = Modifier.weight(1f)
+                colorScheme = colorScheme
             )
         }
         Spacer(Modifier.height(24.dp))
@@ -381,11 +379,11 @@ fun HomeScreenExtension(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 TrendsCard(
-                    icon = HomeIcon.Vector(Icons.Default.Check), color = Color(0xFF6C8FF7),
+                    modifier = Modifier.weight(1f), icon = HomeIcon.Vector(Icons.Default.Check), color = Color(0xFF6C8FF7),
                     label = "Workouts", value = trends.workouts, colorScheme = colorScheme
                 )
                 TrendsCard(
-                    icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFF33CFCF),
+                    modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFF33CFCF),
                     label = "Volume", value = trends.volume, colorScheme = colorScheme
                 )
             }
@@ -395,11 +393,11 @@ fun HomeScreenExtension(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 TrendsCard(
-                    icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFFFF8BC1),
-                    label = "Calories", value = trends.calories, colorScheme = colorScheme
+                    modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFFFF8BC1),
+                    label = "Calories", value = trends.calories, colorScheme = colorScheme,
                 )
                 TrendsCard(
-                    icon = HomeIcon.PainterIcon(painterResource(R.drawable.line_style)), color = Color(0xFFB48CFF),
+                    modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.line_style)), color = Color(0xFFB48CFF),
                     label = "Sets", value = trends.sets, colorScheme = colorScheme
                 )
             }
@@ -409,12 +407,12 @@ fun HomeScreenExtension(
 
 @Composable
 fun HomeScreenCard(
+    modifier: Modifier = Modifier,
     icon: HomeIcon,
     title: String,
     subtitle: String,
     onClick: () -> Unit = {},
     colorScheme: ColorScheme,
-    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
@@ -455,6 +453,7 @@ fun HomeScreenCard(
 
 @Composable
 fun TrendsCard(
+    modifier: Modifier = Modifier,
     icon: HomeIcon,
     color: Color,
     label: String,
@@ -465,11 +464,13 @@ fun TrendsCard(
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary),
-        modifier = Modifier.clickable { onClick() }
+        modifier = modifier.clickable { onClick() }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(16.dp).weight(1f)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         ) {
             Box(
                 modifier = Modifier
