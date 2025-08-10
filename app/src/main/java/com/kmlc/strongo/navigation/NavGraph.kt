@@ -1,9 +1,13 @@
 package com.kmlc.strongo.navigation
 
+import androidx.compose.foundation.background
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +17,7 @@ import com.kmlc.strongo.ui.content.ProfileContent
 import com.kmlc.strongo.ui.content.ScheduleContent
 import com.kmlc.strongo.ui.content.WorkoutsContent
 import androidx.compose.material3.Scaffold
+import androidx.compose.ui.unit.dp
 
 enum class Screen {
     Home, Schedule, Workouts, Profile
@@ -53,9 +58,19 @@ fun HomeScreen(navController: NavController, selectedIndex: Int) {
                 modifier = Modifier.align(Alignment.BottomCenter)
             ) }
         ) { innerPadding ->
-            HomeContent(
-                innerPadding = innerPadding
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = innerPadding.calculateTopPadding() + 16.dp,
+                        bottom = innerPadding.calculateBottomPadding() + 16.dp
+                    )
+            ) {
+                HomeContent()
+            }
         }
     }
 }

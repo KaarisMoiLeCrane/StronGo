@@ -46,7 +46,6 @@ sealed class HomeIcon {
 
 @Composable
 fun HomeContent(
-    innerPadding: PaddingValues,
     nextWorkoutLabel: String = "NEXT WORKOUT - PUSH",
     workoutTitle: String = "Chest, Shoulders, Triceps, Abdo, T'es mort tu vas voir",
     workoutDetails: String = "59 mins • 7 exercises",
@@ -66,168 +65,159 @@ fun HomeContent(
     onWorkoutRecovery: () -> Unit = {},
 ) {
     val colorScheme = MaterialTheme.colorScheme
-
-    Column (
+    // Card: Next Workout
+    Card(
         modifier = Modifier
-            .fillMaxSize()
-            .background(colorScheme.background)
-            .padding(innerPadding)
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
+            .fillMaxWidth()
+            .padding(bottom = 16.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        border = BorderStroke(0.1.dp, colorScheme.primary.copy())
     ) {
-        // Card: Next Workout
+        Column {
+            Column {
+                // Top label
+                Box(
+                    modifier = Modifier
+                        .background(
+                            colorScheme.primary,
+                            RoundedCornerShape(topStart = 8.dp, bottomEnd = 8.dp)
+                        )
+                        .align(Alignment.Start)
+                        .padding(horizontal = 8.dp, vertical = 8.dp)
+                ) {
+                    Text(
+                        text = nextWorkoutLabel,
+                        color = colorScheme.onPrimary,
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
+            }
+            Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
+                Spacer(Modifier.height(12.dp))
+                Text(
+                    text = workoutTitle,
+                    color = colorScheme.onTertiary,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = workoutDetails,
+                    color = colorScheme.onTertiary.copy(alpha = 0.7f),
+                    style = MaterialTheme.typography.bodySmall,
+                )
+                Spacer(Modifier.height(12.dp))
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    items(workoutImages.size) { index ->
+                        Image(
+                            painter = painterResource(id = workoutImages[index]),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(64.dp)
+                                .clip(RoundedCornerShape(16.dp)),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                }
+                Spacer(Modifier.height(16.dp))
+                Row(
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    HomeScreenAction(icon = Icons.AutoMirrored.Filled.ArrowForward, label = "Skip", onClick = onSkip)
+                    HomeScreenAction(icon = Icons.Default.Refresh, label = "Regenerate", onClick = onRegenerate)
+                    HomeScreenAction(icon = Icons.Default.AccountCircle, label = "Duration", onClick = onDuration)
+                    HomeScreenAction(icon = Icons.Default.Email, label = "Share", onClick = onShare)
+                }
+            }
+        }
+    }
+
+    // Quick actions (Upcoming Workouts + Recovery)
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        // Upcoming Workouts
         Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
+            modifier = Modifier.weight(1f),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .clickable { onUpcomingWorkouts() },
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = null,
+                    tint = colorScheme.onTertiary.copy(alpha = 0.7f),
+                    modifier = Modifier.size(32.dp)
+                )
+                Spacer(Modifier.height(28.dp))
+                Text(
+                    "Upcoming Workouts",
+                    color = colorScheme.onTertiary,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+
+        // Workout Recovery
+        Card(
+            modifier = Modifier.weight(1f),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            border = BorderStroke(0.1.dp, colorScheme.primary.copy())
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
-            Column {
-                Column {
-                    // Top label
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .clickable { onWorkoutRecovery() },
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator(
+                        progress = { recoveryPercent / 100f },
+                        modifier = Modifier.size(48.dp),
+                        color = colorScheme.secondary,
+                        strokeWidth = 2.dp
+                    )
                     Box(
                         modifier = Modifier
-                            .background(
-                                colorScheme.primary,
-                                RoundedCornerShape(topStart = 8.dp, bottomEnd = 8.dp)
+                            .size(42.5.dp)
+                            .border(
+                                width = 0.5.dp,
+                                color = colorScheme.onSurface.copy(alpha = 0.5f),
+                                shape = CircleShape
                             )
-                            .align(Alignment.Start)
-                            .padding(horizontal = 8.dp, vertical = 8.dp)
-                    ) {
-                        Text(
-                            text = nextWorkoutLabel,
-                            color = colorScheme.onPrimary,
-                            style = MaterialTheme.typography.labelLarge,
-                        )
-                    }
-                }
-                Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
-                    Spacer(Modifier.height(12.dp))
+                    )
                     Text(
-                        text = workoutTitle,
+                        "$recoveryPercent",
                         color = colorScheme.onTertiary,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold
                     )
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        text = workoutDetails,
-                        color = colorScheme.onTertiary.copy(alpha = 0.7f),
-                        style = MaterialTheme.typography.bodySmall,
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        items(workoutImages.size) { index ->
-                            Image(
-                                painter = painterResource(id = workoutImages[index]),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(64.dp)
-                                    .clip(RoundedCornerShape(16.dp)),
-                                contentScale = ContentScale.Crop
-                            )
-                        }
-                    }
-                    Spacer(Modifier.height(16.dp))
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        HomeScreenAction(icon = Icons.AutoMirrored.Filled.ArrowForward, label = "Skip", onClick = onSkip)
-                        HomeScreenAction(icon = Icons.Default.Refresh, label = "Regenerate", onClick = onRegenerate)
-                        HomeScreenAction(icon = Icons.Default.AccountCircle, label = "Duration", onClick = onDuration)
-                        HomeScreenAction(icon = Icons.Default.Email, label = "Share", onClick = onShare)
-                    }
                 }
+                Spacer(Modifier.height(28.dp))
+                Text(
+                    "Workout Recovery",
+                    color = colorScheme.onTertiary,
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
-
-        // Quick actions (Upcoming Workouts + Recovery)
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            // Upcoming Workouts
-            Card(
-                modifier = Modifier.weight(1f),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .clickable { onUpcomingWorkouts() },
-                    verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = null,
-                        tint = colorScheme.onTertiary.copy(alpha = 0.7f),
-                        modifier = Modifier.size(32.dp)
-                    )
-                    Spacer(Modifier.height(28.dp))
-                    Text(
-                        "Upcoming Workouts",
-                        color = colorScheme.onTertiary,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-
-            // Workout Recovery
-            Card(
-                modifier = Modifier.weight(1f),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .clickable { onWorkoutRecovery() },
-                    verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator(
-                            progress = { recoveryPercent / 100f },
-                            modifier = Modifier.size(48.dp),
-                            color = colorScheme.secondary,
-                            strokeWidth = 2.dp
-                        )
-                        Box(
-                            modifier = Modifier
-                                .size(42.5.dp)
-                                .border(
-                                    width = 0.5.dp,
-                                    color = colorScheme.onSurface.copy(alpha = 0.5f),
-                                    shape = CircleShape
-                                )
-                        )
-                        Text(
-                            "$recoveryPercent",
-                            color = colorScheme.onTertiary,
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Spacer(Modifier.height(28.dp))
-                    Text(
-                        "Workout Recovery",
-                        color = colorScheme.onTertiary,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-        }
-        HomeScreenExtension()
     }
+    HomeScreenExtension()
 }
 
 @Composable
@@ -262,8 +252,6 @@ fun HomeScreenExtension(
     trends: TrendsData = TrendsData()
 ) {
     val colorScheme = MaterialTheme.colorScheme
-
-
         Text(
             text = "Feeling like something different?",
             color = colorScheme.onBackground,
@@ -272,8 +260,11 @@ fun HomeScreenExtension(
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
                 .widthIn(min = 400.dp)
+                .padding(horizontal = 1.dp)
         ) {
             HomeScreenCard(
                 icon = HomeIcon.PainterIcon(painterResource(R.drawable.auto_awesome)),
