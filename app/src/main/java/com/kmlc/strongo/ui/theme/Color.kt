@@ -18,9 +18,9 @@ val StronGoDarkAccent = Color(0xFFEBFF00)
 val StronGoDarkProgress = Color(0xFF2FBB6E)
 
 // Couleurs utilitaires
-val StronGoDarkBorder = Color(0xAAEBFF00)
-val StronGoDarkProgressTrack = Color(0xBFB7B7C8)
-val StronGoDarkIcon = Color(0xFFB7B7C8)
+// val StronGoDarkBorder = Color(0xAAEBFF00)
+// val StronGoDarkProgressTrack = Color(0xBFB7B7C8)
+// val StronGoDarkIcon = Color(0xFFB7B7C8)
 
 
 
@@ -40,6 +40,6 @@ val StronGoLightAccent = Color(0xFF445E91)
 val StronGoLightProgress = Color(0xFF2FBB6E)
 
 // Couleurs utilitaires
-val StronGoLightBorder = Color(0xAA445E91)
-val StronGoLightProgressTrack = Color(0xBF616064)
-val StronGoLightIcon = Color(0xFF616064)
+// StronGoLightBorder = Color(0xAA445E91)
+// StronGoLightProgressTrack = Color(0xBF616064)
+// StronGoLightIcon = Color(0xFF616064)
