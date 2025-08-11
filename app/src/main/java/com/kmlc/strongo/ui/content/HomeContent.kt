@@ -250,159 +250,159 @@ fun HomeScreenExtension(
     trends: TrendsData = TrendsData()
 ) {
     val colorScheme = MaterialTheme.colorScheme
-        Text(
-            text = "Feeling like something different?",
-            color = colorScheme.onBackground,
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(vertical = 12.dp)
+    Text(
+        text = "Feeling like something different?",
+        color = colorScheme.onBackground,
+        style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier.padding(vertical = 12.dp)
+    )
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState())
+            .widthIn(min = 400.dp)
+            .padding(horizontal = 1.dp)
+    ) {
+        HomeScreenCard(
+            modifier = Modifier.weight(1f),
+            icon = HomeIcon.PainterIcon(painterResource(R.drawable.auto_awesome)),
+            title = "Custom",
+            subtitle = "Create a freestyle session",
+            onClick = onCustomSession,
+            colorScheme = colorScheme
         )
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
-                .widthIn(min = 400.dp)
-                .padding(horizontal = 1.dp)
-        ) {
-            HomeScreenCard(
-                modifier = Modifier.weight(1f),
-                icon = HomeIcon.PainterIcon(painterResource(R.drawable.auto_awesome)),
-                title = "Custom",
-                subtitle = "Create a freestyle session",
-                onClick = onCustomSession,
-                colorScheme = colorScheme
-            )
-            HomeScreenCard(
-                modifier = Modifier.weight(1f),
-                icon = HomeIcon.PainterIcon(painterResource(R.drawable.bookmarks)),
-                title = "Favorites",
-                subtitle = "Pick from your saved workouts",
-                onClick = onFavorites,
-                colorScheme = colorScheme
-            )
-            HomeScreenCard(
-                modifier = Modifier.weight(1f),
-                icon = HomeIcon.Vector(Icons.Default.PlayArrow),
-                title = "Empty",
-                subtitle = "Full control over your workout",
-                onClick = onEmptySession,
-                colorScheme = colorScheme
-            )
-        }
-        Spacer(Modifier.height(24.dp))
+        HomeScreenCard(
+            modifier = Modifier.weight(1f),
+            icon = HomeIcon.PainterIcon(painterResource(R.drawable.bookmarks)),
+            title = "Favorites",
+            subtitle = "Pick from your saved workouts",
+            onClick = onFavorites,
+            colorScheme = colorScheme
+        )
+        HomeScreenCard(
+            modifier = Modifier.weight(1f),
+            icon = HomeIcon.Vector(Icons.Default.PlayArrow),
+            title = "Empty",
+            subtitle = "Full control over your workout",
+            onClick = onEmptySession,
+            colorScheme = colorScheme
+        )
+    }
+    Spacer(Modifier.height(24.dp))
 
-        Text(
-            text = "Strength Score",
-            color = colorScheme.onBackground,
-            style = MaterialTheme.typography.titleMedium
-        )
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
+    Text(
+        text = "Strength Score",
+        color = colorScheme.onBackground,
+        style = MaterialTheme.typography.titleMedium
+    )
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 12.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(16.dp)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(16.dp)
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(colorScheme.primary, shape = polygonShape(6))
+                    .padding(6.dp),
+                contentAlignment = Alignment.Center
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .background(colorScheme.primary, shape = polygonShape(6))
-                        .padding(6.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.fitness_center),
-                        contentDescription = "Strength Score",
-                        tint = colorScheme.tertiary,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
-                Spacer(Modifier.width(16.dp))
-                if (strengthScore == null) {
+                Icon(
+                    painter = painterResource(R.drawable.fitness_center),
+                    contentDescription = "Strength Score",
+                    tint = colorScheme.tertiary,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            Spacer(Modifier.width(16.dp))
+            if (strengthScore == null) {
+                Text(
+                    text = "You need to complete a few workouts before you can see your score.",
+                    color = colorScheme.onTertiary,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            } else {
+                Column {
                     Text(
-                        text = "You need to complete a few workouts before you can see your score.",
+                        text = "Your Strength Score",
                         color = colorScheme.onTertiary,
                         style = MaterialTheme.typography.bodyMedium
                     )
-                } else {
-                    Column {
-                        Text(
-                            text = "Your Strength Score",
-                            color = colorScheme.onTertiary,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                        Text(
-                            text = "$strengthScore",
-                            color = colorScheme.primary,
-                            style = MaterialTheme.typography.titleLarge
-                        )
-                    }
+                    Text(
+                        text = "$strengthScore",
+                        color = colorScheme.primary,
+                        style = MaterialTheme.typography.titleLarge
+                    )
                 }
             }
         }
+    }
 
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = "Trends",
+            color = colorScheme.onBackground,
+            style = MaterialTheme.typography.titleMedium
+        )
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable { onTrendsPeriodChange("Past 7 days") }
         ) {
             Text(
-                text = "Trends",
+                text = trendsPeriod,
                 color = colorScheme.onBackground,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.bodyMedium
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.clickable { onTrendsPeriodChange("Past 7 days") }
-            ) {
-                Text(
-                    text = trendsPeriod,
-                    color = colorScheme.onBackground,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Icon(
-                    imageVector = Icons.Default.KeyboardArrowDown,
-                    contentDescription = "Change period",
-                    tint = colorScheme.onBackground
-                )
-            }
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowDown,
+                contentDescription = "Change period",
+                tint = colorScheme.onBackground
+            )
         }
-        Spacer(Modifier.height(12.dp))
-        Column(
-            modifier = Modifier.fillMaxWidth()
+    }
+    Spacer(Modifier.height(12.dp))
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                TrendsCard(
-                    modifier = Modifier.weight(1f), icon = HomeIcon.Vector(Icons.Default.Check), color = Color(0xFF6C8FF7),
-                    label = "Workouts", value = trends.workouts, colorScheme = colorScheme
-                )
-                TrendsCard(
-                    modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFF33CFCF),
-                    label = "Volume", value = trends.volume, colorScheme = colorScheme
-                )
-            }
-            Spacer(Modifier.height(16.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                TrendsCard(
-                    modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFFFF8BC1),
-                    label = "Calories", value = trends.calories, colorScheme = colorScheme,
-                )
-                TrendsCard(
-                    modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.line_style)), color = Color(0xFFB48CFF),
-                    label = "Sets", value = trends.sets, colorScheme = colorScheme
-                )
-            }
+            TrendsCard(
+                modifier = Modifier.weight(1f), icon = HomeIcon.Vector(Icons.Default.Check), color = Color(0xFF6C8FF7),
+                label = "Workouts", value = trends.workouts, colorScheme = colorScheme
+            )
+            TrendsCard(
+                modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFF33CFCF),
+                label = "Volume", value = trends.volume, colorScheme = colorScheme
+            )
         }
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            TrendsCard(
+                modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFFFF8BC1),
+                label = "Calories", value = trends.calories, colorScheme = colorScheme,
+            )
+            TrendsCard(
+                modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.line_style)), color = Color(0xFFB48CFF),
+                label = "Sets", value = trends.sets, colorScheme = colorScheme
+            )
+        }
+    }
+    Spacer(Modifier.height(24.dp))
 }
 
 @Composable
@@ -415,18 +415,20 @@ fun HomeScreenCard(
     colorScheme: ColorScheme,
 ) {
     Card(
-        modifier = modifier
-            .height(160.dp)
-            .clickable { onClick() },
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        modifier = modifier
+            .height(160.dp),
+        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
     ) {
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
                 .fillMaxSize()
+                .clickable(
+                    onClick = onClick
+                )
                 .padding(16.dp)
                 .weight(1f)
         ) {
@@ -462,14 +464,16 @@ fun TrendsCard(
     colorScheme: ColorScheme
 ) {
     Card(
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary),
-        modifier = modifier.clickable { onClick() }
+        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
+                .clickable { onClick() }
                 .padding(16.dp)
         ) {
             Box(
