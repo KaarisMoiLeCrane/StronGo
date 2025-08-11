@@ -27,19 +27,20 @@ import com.kmlc.strongo.R
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import kotlin.math.cos
-import kotlin.math.sin
+import com.kmlc.strongo.ui.HorizontalCard
+import com.kmlc.strongo.ui.IconView
+import com.kmlc.strongo.ui.VerticalCard
+import com.kmlc.strongo.ui.polygonShape
 
-sealed class HomeIcon {
-    data class Vector(val imageVector: ImageVector) : HomeIcon()
-    data class PainterIcon(val painter: Painter) : HomeIcon()
+sealed class IconClass {
+    data class Vector(val imageVector: ImageVector) : IconClass()
+    data class PainterIcon(val painter: Painter) : IconClass()
 }
 
 @Composable
@@ -141,48 +142,23 @@ fun HomeContent(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
-        // Upcoming Workouts
-        Card(
+        VerticalCard(
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable { onUpcomingWorkouts() },
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.Start
-            ) {
-                Icon(
-                    imageVector = Icons.Default.DateRange,
-                    contentDescription = null,
-                    tint = colorScheme.onTertiary.copy(alpha = 0.7f),
-                    modifier = Modifier.size(32.dp)
+            composableElement = {
+                IconView(
+                    icon = IconClass.Vector(Icons.Default.DateRange),
+                    description = "Upcoming Workouts"
                 )
-                Spacer(Modifier.height(28.dp))
-                Text(
-                    "Upcoming Workouts",
-                    color = colorScheme.onTertiary,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-        }
+            },
+            subtitle = "Upcoming Workouts",
+            description = "View your next workouts",
+            onClick = onUpcomingWorkouts,
+            colorScheme = colorScheme
+        )
 
-        // Workout Recovery
-        Card(
+        VerticalCard(
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable { onWorkoutRecovery() },
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.Start
-            ) {
+            composableElement = {
                 Box(contentAlignment = Alignment.Center) {
                     CircularProgressIndicator(
                         progress = { recoveryPercent / 100f },
@@ -206,14 +182,12 @@ fun HomeContent(
                         fontWeight = FontWeight.Bold
                     )
                 }
-                Spacer(Modifier.height(28.dp))
-                Text(
-                    "Workout Recovery",
-                    color = colorScheme.onTertiary,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-        }
+            },
+            subtitle = "Workout Recovery",
+            description = "Track your recovery progress",
+            onClick = onWorkoutRecovery,
+            colorScheme = colorScheme
+        )
     }
     HomeScreenExtension()
 }
@@ -264,49 +238,71 @@ fun HomeScreenExtension(
             .widthIn(min = 400.dp)
             .padding(horizontal = 1.dp)
     ) {
-        HomeScreenCard(
+        VerticalCard(
             modifier = Modifier.weight(1f),
-            icon = HomeIcon.PainterIcon(painterResource(R.drawable.auto_awesome)),
+            composableElement = {
+                IconView(
+                    icon = IconClass.PainterIcon(painterResource(R.drawable.auto_awesome)),
+                    description = "Custom"
+                )
+            },
             title = "Custom",
-            subtitle = "Create a freestyle session",
+            description = "Create a freestyle session",
             onClick = onCustomSession,
             colorScheme = colorScheme
         )
-        HomeScreenCard(
+
+        VerticalCard(
             modifier = Modifier.weight(1f),
-            icon = HomeIcon.PainterIcon(painterResource(R.drawable.bookmarks)),
+            composableElement = {
+                IconView(
+                    icon = IconClass.PainterIcon(painterResource(R.drawable.bookmarks)),
+                    description = "Favorites"
+                )
+            },
             title = "Favorites",
-            subtitle = "Pick from your saved workouts",
+            description = "Pick from your saved workouts",
             onClick = onFavorites,
             colorScheme = colorScheme
         )
-        HomeScreenCard(
+
+        VerticalCard(
             modifier = Modifier.weight(1f),
-            icon = HomeIcon.Vector(Icons.Default.PlayArrow),
+            composableElement = {
+                IconView(
+                    icon = IconClass.Vector(Icons.Default.PlayArrow),
+                    description = "Empty"
+                )
+            },
             title = "Empty",
-            subtitle = "Full control over your workout",
+            description = "Full control over your workout",
             onClick = onEmptySession,
             colorScheme = colorScheme
         )
     }
     Spacer(Modifier.height(24.dp))
 
+    val strengthScoreSubTitle = if (strengthScore == null) {
+        "You need to complete a few workouts before you can see your score."
+    } else {
+        "Your Strength Score"
+    }
+
+    val strengthScoreTitle = if (strengthScore != null) {
+        "$strengthScore"
+    } else {
+        ""
+    }
+
     Text(
         text = "Strength Score",
         color = colorScheme.onBackground,
         style = MaterialTheme.typography.titleMedium
     )
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 12.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(16.dp)
-        ) {
+
+    HorizontalCard(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+        composableElement = {
             Box(
                 modifier = Modifier
                     .size(40.dp)
@@ -314,36 +310,19 @@ fun HomeScreenExtension(
                     .padding(6.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.fitness_center),
-                    contentDescription = "Strength Score",
+                IconView(
+                    icon = IconClass.PainterIcon(painterResource(R.drawable.fitness_center)),
+                    description = "Strength Score",
                     tint = colorScheme.tertiary,
                     modifier = Modifier.size(24.dp)
                 )
             }
-            Spacer(Modifier.width(16.dp))
-            if (strengthScore == null) {
-                Text(
-                    text = "You need to complete a few workouts before you can see your score.",
-                    color = colorScheme.onTertiary,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            } else {
-                Column {
-                    Text(
-                        text = "Your Strength Score",
-                        color = colorScheme.onTertiary,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        text = "$strengthScore",
-                        color = colorScheme.primary,
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
-            }
-        }
-    }
+
+        },
+        subtitle = strengthScoreSubTitle,
+        title = strengthScoreTitle,
+        colorScheme = colorScheme
+    )
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -378,13 +357,47 @@ fun HomeScreenExtension(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            TrendsCard(
-                modifier = Modifier.weight(1f), icon = HomeIcon.Vector(Icons.Default.Check), color = Color(0xFF6C8FF7),
-                label = "Workouts", value = trends.workouts, colorScheme = colorScheme
+            HorizontalCard(
+                modifier = Modifier.weight(1f),
+                composableElement = {
+                    Box(
+                        modifier = Modifier
+                            .size(32.dp)
+                            .background(Color(0xFF6C8FF7), CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        IconView(
+                            modifier = Modifier.size(20.dp),
+                            icon = IconClass.Vector(Icons.Default.Check),
+                            description = "Custom",
+                            tint = Color.White
+                        )
+                    }
+                },
+                description = "Workouts",
+                subtitle = trends.workouts,
+                colorScheme = colorScheme
             )
-            TrendsCard(
-                modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFF33CFCF),
-                label = "Volume", value = trends.volume, colorScheme = colorScheme
+            HorizontalCard(
+                modifier = Modifier.weight(1f),
+                composableElement = {
+                    Box(
+                        modifier = Modifier
+                            .size(32.dp)
+                            .background(Color(0xFF33CFCF), CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        IconView(
+                            modifier = Modifier.size(20.dp),
+                            icon = IconClass.PainterIcon(painterResource(R.drawable.local_fire_department)),
+                            description = "Volume",
+                            tint = Color.White
+                        )
+                    }
+                },
+                description = "Volume",
+                subtitle = trends.volume,
+                colorScheme = colorScheme
             )
         }
         Spacer(Modifier.height(16.dp))
@@ -392,140 +405,51 @@ fun HomeScreenExtension(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            TrendsCard(
-                modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.local_fire_department)), color = Color(0xFFFF8BC1),
-                label = "Calories", value = trends.calories, colorScheme = colorScheme,
+            HorizontalCard(
+                modifier = Modifier.weight(1f),
+                composableElement = {
+                    Box(
+                        modifier = Modifier
+                            .size(32.dp)
+                            .background(Color(0xFFFF8BC1), CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        IconView(
+                            modifier = Modifier.size(20.dp),
+                            icon = IconClass.PainterIcon(painterResource(R.drawable.local_fire_department)),
+                            description = "Calories",
+                            tint = Color.White
+                        )
+                    }
+                },
+                description = "Calories",
+                subtitle = trends.calories,
+                colorScheme = colorScheme
             )
-            TrendsCard(
-                modifier = Modifier.weight(1f), icon = HomeIcon.PainterIcon(painterResource(R.drawable.line_style)), color = Color(0xFFB48CFF),
-                label = "Sets", value = trends.sets, colorScheme = colorScheme
+            HorizontalCard(
+                modifier = Modifier.weight(1f),
+                composableElement = {
+                    Box(
+                        modifier = Modifier
+                            .size(32.dp)
+                            .background(Color(0xFFB48CFF), CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        IconView(
+                            modifier = Modifier.size(20.dp),
+                            icon = IconClass.PainterIcon(painterResource(R.drawable.line_style)),
+                            description = "Sets",
+                            tint = Color.White
+                        )
+                    }
+                },
+                description = "Sets",
+                subtitle = trends.sets,
+                colorScheme = colorScheme
             )
         }
     }
     Spacer(Modifier.height(24.dp))
-}
-
-@Composable
-fun HomeScreenCard(
-    modifier: Modifier = Modifier,
-    icon: HomeIcon,
-    title: String,
-    subtitle: String,
-    onClick: () -> Unit = {},
-    colorScheme: ColorScheme,
-) {
-    Card(
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-            .height(160.dp),
-        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
-    ) {
-        Column(
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start,
-            modifier = Modifier
-                .fillMaxSize()
-                .clickable(
-                    onClick = onClick
-                )
-                .padding(16.dp)
-                .weight(1f)
-        ) {
-            when (icon) {
-                is HomeIcon.Vector -> Icon(
-                    imageVector = icon.imageVector,
-                    contentDescription = title,
-                    tint = colorScheme.onTertiary,
-                    modifier = Modifier.size(36.dp)
-                )
-                is HomeIcon.PainterIcon -> Icon(
-                    painter = icon.painter,
-                    contentDescription = title,
-                    tint = colorScheme.onTertiary,
-                    modifier = Modifier.size(36.dp)
-                )
-            }
-            Spacer(Modifier.height(28.dp))
-            Text(title, color = colorScheme.onTertiary, style = MaterialTheme.typography.titleSmall)
-            Text(subtitle, color = colorScheme.onSurface, style = MaterialTheme.typography.bodySmall)
-        }
-    }
-}
-
-@Composable
-fun TrendsCard(
-    modifier: Modifier = Modifier,
-    icon: HomeIcon,
-    color: Color,
-    label: String,
-    value: String,
-    onClick: () -> Unit = {},
-    colorScheme: ColorScheme
-) {
-    Card(
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxSize()
-                .clickable { onClick() }
-                .padding(16.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .background(color, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                when (icon) {
-                    is HomeIcon.Vector -> Icon(
-                        imageVector = icon.imageVector,
-                        contentDescription = label,
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
-                    )
-                    is HomeIcon.PainterIcon -> Icon(
-                        painter = icon.painter,
-                        contentDescription = label,
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-            Spacer(Modifier.width(12.dp))
-            Column {
-                Text(
-                    text = value,
-                    color = colorScheme.onTertiary,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-                Text(
-                    text = label,
-                    color = colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-        }
-    }
-}
-
-// Pour la forme hexagone (PolygonShape) :
-fun polygonShape(sides: Int) = GenericShape { size, _ ->
-    val radius = size.minDimension / 2
-    val centerX = size.width / 2
-    val centerY = size.height / 2
-    for (i in 0 until sides) {
-        val angle = Math.toRadians(360.0 * i / sides - 90)
-        val x = centerX + radius * cos(angle).toFloat()
-        val y = centerY + radius * sin(angle).toFloat()
-        if (i == 0) moveTo(x, y) else lineTo(x, y)
-    }
-    close()
 }
 
 // Data model pour trends
