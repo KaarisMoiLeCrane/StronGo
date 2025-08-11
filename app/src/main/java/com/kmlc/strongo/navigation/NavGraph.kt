@@ -15,9 +15,10 @@ import com.kmlc.strongo.ui.content.ScheduleContent
 import com.kmlc.strongo.ui.content.WorkoutsContent
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.unit.dp
+import com.kmlc.strongo.ui.content.HomeSection.StrengthScoreSection.StrengthScoreDetailsContent
 
 enum class Screen {
-    Home, Schedule, Workouts, Profile
+    Home, Schedule, Workouts, Profile, StrengthScoreDetails
 }
 
 @Composable
@@ -29,6 +30,7 @@ fun StronGoNavGraph(startDestination: Screen = Screen.Home) {
         composable(Screen.Schedule.name) { ScheduleScreen(navController, 1) }
         composable(Screen.Workouts.name) { WorkoutsScreen(navController, 2) }
         composable(Screen.Profile.name) { ProfileScreen(navController, 3) }
+        composable(Screen.StrengthScoreDetails.name) { StrengthScoreDetailsScreen(navController, 0) }
     }
 }
 
@@ -65,7 +67,7 @@ fun HomeScreen(navController: NavController, selectedIndex: Int) {
                 ),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                item { HomeContent() }
+                item { HomeContent(navController = navController) }
             }
         }
     }
@@ -157,6 +159,47 @@ fun ProfileScreen(navController: NavController, selectedIndex: Int) {
             ProfileContent(
                 innerPadding = innerPadding
             )
+        }
+    }
+}
+
+@Composable
+fun StrengthScoreDetailsScreen(navController: NavController, selectedIndex: Int) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            topBar = { CustomStatusBar() },
+            bottomBar = { BottomNavigationBar(
+                selectedIndex,
+                onItemSelected = { index ->
+                    val screen = when (index) {
+                        0 -> Screen.Home
+                        1 -> Screen.Schedule
+                        2 -> Screen.Workouts
+                        3 -> Screen.Profile
+                        else -> Screen.Home
+                    }
+                    navController.navigate(screen.name) {
+                        popUpTo(Screen.Home.name) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) }
+        ) { innerPadding ->
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    end = 16.dp,
+                    top = innerPadding.calculateTopPadding() + 16.dp,
+                    bottom = innerPadding.calculateBottomPadding() + 16.dp
+                ),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                item {
+                    StrengthScoreDetailsContent()
+                }
+            }
         }
     }
 }

@@ -20,7 +20,8 @@ import com.kmlc.strongo.ui.component.polygonShape
 
 @Composable
 fun StrengthScoreSection(
-    strengthScore: Int? = null
+    strengthScore: Int? = null,
+    onClick: () -> Unit = {},
 ) {
     val strengthScoreSubTitle = if (strengthScore == null) {
         "You need to complete a few workouts before you can see your score."
@@ -41,7 +42,9 @@ fun StrengthScoreSection(
     )
 
     HorizontalCard(
-        modifier = Modifier.Companion.fillMaxWidth().padding(vertical = 12.dp),
+        modifier = Modifier.Companion
+            .fillMaxWidth()
+            .padding(vertical = 12.dp),
         composableElement = {
             Box(
                 modifier = Modifier.Companion
@@ -61,6 +64,7 @@ fun StrengthScoreSection(
         },
         subtitle = strengthScoreSubTitle,
         title = strengthScoreTitle,
+        onClick = onClick,
         colorScheme = MaterialTheme.colorScheme
     )
 }

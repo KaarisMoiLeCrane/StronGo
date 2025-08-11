@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.kmlc.strongo.R
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.kmlc.strongo.ui.content.HomeSection.CentralCardSection
 import com.kmlc.strongo.ui.content.HomeSection.FeelingDifferentSection
 import com.kmlc.strongo.ui.content.HomeSection.QuickActionsSection
@@ -14,6 +15,7 @@ import com.kmlc.strongo.ui.content.HomeSection.TrendsSection
 
 @Composable
 fun HomeContent(
+    navController: NavController,
     nextWorkoutLabel: String = "NEXT WORKOUT - PUSH",
     workoutTitle: String = "Chest, Shoulders, Triceps, Abdo, T'es mort tu vas voir",
     workoutDetails: String = "59 mins • 7 exercises",
@@ -65,7 +67,8 @@ fun HomeContent(
     Spacer(Modifier.height(24.dp))
 
     StrengthScoreSection(
-        strengthScore = strengthScore
+        strengthScore = strengthScore,
+        onClick = { navController.navigate("StrengthScoreDetails") }
     )
 
     TrendsSection(
