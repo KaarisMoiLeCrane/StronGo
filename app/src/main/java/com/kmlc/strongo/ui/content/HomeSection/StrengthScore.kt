@@ -1,0 +1,66 @@
+package com.kmlc.strongo.ui.content.HomeSection
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import com.kmlc.strongo.R
+import com.kmlc.strongo.ui.component.IconClass
+import com.kmlc.strongo.ui.component.IconView
+import com.kmlc.strongo.ui.component.HorizontalCard
+import com.kmlc.strongo.ui.component.polygonShape
+
+@Composable
+fun StrengthScoreSection(
+    strengthScore: Int? = null
+) {
+    val strengthScoreSubTitle = if (strengthScore == null) {
+        "You need to complete a few workouts before you can see your score."
+    } else {
+        "Your Strength Score"
+    }
+
+    val strengthScoreTitle = if (strengthScore != null) {
+        "$strengthScore"
+    } else {
+        ""
+    }
+
+    Text(
+        text = "Strength Score",
+        color = MaterialTheme.colorScheme.onBackground,
+        style = MaterialTheme.typography.titleMedium
+    )
+
+    HorizontalCard(
+        modifier = Modifier.Companion.fillMaxWidth().padding(vertical = 12.dp),
+        composableElement = {
+            Box(
+                modifier = Modifier.Companion
+                    .size(40.dp)
+                    .background(MaterialTheme.colorScheme.primary, shape = polygonShape(6))
+                    .padding(6.dp),
+                contentAlignment = Alignment.Companion.Center
+            ) {
+                IconView(
+                    icon = IconClass.PainterIcon(painterResource(R.drawable.ic_fitness_center)),
+                    description = "Strength Score",
+                    tint = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.Companion.size(24.dp)
+                )
+            }
+
+        },
+        subtitle = strengthScoreSubTitle,
+        title = strengthScoreTitle,
+        colorScheme = MaterialTheme.colorScheme
+    )
+}

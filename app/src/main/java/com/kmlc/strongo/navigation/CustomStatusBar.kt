@@ -115,7 +115,7 @@ fun CustomStatusBar() {
             )
             Spacer(modifier = Modifier.Companion.padding(horizontal = 4.dp))
             Icon(
-                painter = painterResource(id = R.drawable.access_time),
+                painter = painterResource(id = R.drawable.ic_access_time),
                 contentDescription = "Heure",
                 tint = Color.Companion.White
             )
@@ -131,9 +131,9 @@ fun CustomStatusBar() {
                 style = MaterialTheme.typography.bodyMedium
             )
             val chargingPainter = if (isCharging) {
-                painterResource(id = R.drawable.power)
+                painterResource(id = R.drawable.ic_power)
             } else {
-                painterResource(id = R.drawable.battery_full)
+                painterResource(id = R.drawable.ic_battery_full)
             }
             Spacer(modifier = Modifier.Companion.padding(horizontal = 4.dp))
             Icon(
