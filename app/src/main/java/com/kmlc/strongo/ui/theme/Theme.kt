@@ -6,7 +6,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
@@ -19,10 +21,11 @@ private val DarkColorScheme = darkColorScheme(
     background = StronGoDarkBackground,       // Fond principal
     onBackground = StronGoDarkOnBackground,   // Texte sur fond
     surface = StronGoDarkCard,                // Surface (cartes, dialogs)
-    onSurface = StronGoDarkOnSurface          // Texte sur surface
+    onSurface = StronGoDarkOnSurface,         // Texte sur surface
+    error = Color(0xFFFF2B2B)
 )
 
-private val LightColorScheme = darkColorScheme(
+private val LightColorScheme = lightColorScheme(
     primary = StronGoLightAccent,              // Couleur d'accent principale
     onPrimary = StronGoLightOnPrimary,         // Texte sur accent
     secondary = StronGoLightProgress,          // Couleur secondaire (progress bar)
@@ -32,7 +35,8 @@ private val LightColorScheme = darkColorScheme(
     background = StronGoLightBackground,       // Fond principal
     onBackground = StronGoLightOnBackground,   // Texte sur fond
     surface = StronGoLightCard,                // Surface (cartes, dialogs)
-    onSurface = StronGoLightOnSurface          // Texte sur surface
+    onSurface = StronGoLightOnSurface,         // Texte sur surface
+    error = Color(0xFFFF2B2B)
 )
 
 @Override

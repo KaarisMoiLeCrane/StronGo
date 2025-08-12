@@ -1,22 +1,16 @@
 package com.kmlc.strongo.ui.content.HomeSection
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.kmlc.strongo.ui.component.CircularProgress
 import com.kmlc.strongo.ui.component.IconClass
 import com.kmlc.strongo.ui.component.IconView
 import com.kmlc.strongo.ui.component.VerticalCard
@@ -48,6 +42,17 @@ fun QuickActionsSection(
         VerticalCard(
             modifier = Modifier.Companion.weight(1f),
             composableElement = {
+                CircularProgress(
+                    actualValue = recoveryPercent,
+                    maxValue = 100,
+                    size = 56.dp,
+                    fontSize = 16.sp,
+                    strokeWidth = 2.dp,
+                    color = MaterialTheme.colorScheme.secondary,
+                    label = "",
+                    showGlow = true
+                )
+                /*
                 Box(contentAlignment = Alignment.Companion.Center) {
                     CircularProgressIndicator(
                         progress = { recoveryPercent / 100f },
@@ -70,8 +75,9 @@ fun QuickActionsSection(
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Companion.Bold
                     )
-                }
+                }*/
             },
+            space = 16.dp,
             subtitle = "Workout Recovery",
             description = "Track your recovery progress",
             onClick = onWorkoutRecovery,

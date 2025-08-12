@@ -17,9 +17,8 @@ fun StrengthScoreDetailsContent() {
     var showInfoDialog by remember { mutableStateOf(false) }
 
     StrengthScoreCard(
-        score = 161,
-        maxScore = 200,
-        level = StrengthLevel.fromScore(161),
+        score = 121,
+        level = StrengthLevel.fromScore(121),
         muscleScores = listOf(
             MuscleScore("Total Score", 6, true),
             MuscleScore("Chest", 12, true),

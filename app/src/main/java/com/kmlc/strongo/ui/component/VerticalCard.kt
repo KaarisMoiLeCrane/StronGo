@@ -16,12 +16,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun VerticalCard(
     modifier: Modifier = Modifier.Companion,
     composableElement: @Composable () -> Unit,
+    space: Dp = 28.dp,
     title: String = "",
     subtitle: String = "",
     description: String = "",
@@ -48,7 +50,7 @@ fun VerticalCard(
         ) {
             composableElement()
 
-            Spacer(Modifier.Companion.height(28.dp))
+            Spacer(Modifier.Companion.height(space))
 
             if (!title.isEmpty()) {
                 Text(
