@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,9 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.kmlc.strongo.R
+import com.kmlc.strongo.ui.component.IconClass
+import com.kmlc.strongo.ui.component.IconView
+import com.kmlc.strongo.ui.component.icons.StronGoIcons
+import com.kmlc.strongo.ui.component.icons.filled.BatteryFull
+import com.kmlc.strongo.ui.component.icons.outlined.AccessTime
+import com.kmlc.strongo.ui.component.icons.outlined.Power
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -114,9 +117,10 @@ fun CustomStatusBar() {
                 style = MaterialTheme.typography.bodyMedium
             )
             Spacer(modifier = Modifier.Companion.padding(horizontal = 4.dp))
-            Icon(
-                painter = painterResource(id = R.drawable.ic_access_time),
-                contentDescription = "Heure",
+
+            IconView(
+                icon = IconClass.Vector(StronGoIcons.Outlined.AccessTime),
+                description = "Hour",
                 tint = Color.Companion.White
             )
         }
@@ -130,15 +134,17 @@ fun CustomStatusBar() {
                 color = Color.Companion.White,
                 style = MaterialTheme.typography.bodyMedium
             )
+
             val chargingPainter = if (isCharging) {
-                painterResource(id = R.drawable.ic_power)
+                IconClass.Vector(StronGoIcons.Outlined.Power)
             } else {
-                painterResource(id = R.drawable.ic_battery_full)
+                IconClass.Vector(StronGoIcons.Filled.BatteryFull)
             }
+
             Spacer(modifier = Modifier.Companion.padding(horizontal = 4.dp))
-            Icon(
-                painter = chargingPainter,
-                contentDescription = if (isCharging) "Branché" else "Sur batterie",
+            IconView(
+                icon = chargingPainter,
+                description = if (isCharging) "Branché" else "Sur batterie",
                 tint = Color.Companion.White
             )
         }

@@ -7,17 +7,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.painterResource
-import com.kmlc.strongo.R
+import com.kmlc.strongo.ui.component.IconClass
+import com.kmlc.strongo.ui.component.IconView
+import com.kmlc.strongo.ui.component.icons.StronGoIcons
+import com.kmlc.strongo.ui.component.icons.filled.WorkoutPerson
 
 @Composable
 fun BottomNavigationBar(
@@ -26,10 +26,10 @@ fun BottomNavigationBar(
     modifier: Modifier = Modifier
 ) {
     val items = listOf(
-        Pair("Home", Icons.Default.Home),
-        Pair("Schedule", Icons.Default.DateRange),
-        Pair("Workouts", R.drawable.ic_workouts),
-        Pair("Profile", Icons.Default.Person)
+        Pair("Home", IconClass.Vector(Icons.Default.Home)),
+        Pair("Schedule", IconClass.Vector(Icons.Default.DateRange)),
+        Pair("Workouts", IconClass.Vector(StronGoIcons.Filled.WorkoutPerson)),
+        Pair("Profile", IconClass.Vector(Icons.Default.Person))
     )
     Surface(
         tonalElevation = 8.dp,
@@ -46,20 +46,12 @@ fun BottomNavigationBar(
         ) {
             items.forEachIndexed { index, item ->
                 IconButton(onClick = { onItemSelected(index) }) {
-                    when (val icon = item.second) {
-                        is ImageVector -> Icon(
-                            imageVector = icon,
-                            contentDescription = item.first,
-                            tint = if (index == selectedIndex) Color(0xFFEBFF00) else Color(0xFF7C7C82),
-                            modifier = Modifier.size(22.dp)
-                        )
-                        is Int -> Icon(
-                            painter = painterResource(id = icon),
-                            contentDescription = item.first,
-                            tint = if (index == selectedIndex) Color(0xFFEBFF00) else Color(0xFF7C7C82),
-                            modifier = Modifier.size(22.dp)
-                        )
-                    }
+                    IconView(
+                        icon = item.second,
+                        description = item.first,
+                        tint = if (index == selectedIndex) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(24.dp)
+                    )
                 }
             }
         }

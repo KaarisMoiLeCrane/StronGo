@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Valkyrie.Settings">
+    <option name="iconPackDestination" value="D:\Android\StronGo\app\src\main\java\com\kmlc\strongo\ui\component\icons\muscle" />
+    <option name="iconPackName" value="Muscle" />
+    <option name="iconPackPackage" value="com.kmlc.strongo.ui.component.icons.muscle" />
+    <option name="mode" value="IconPack" />
+    <option name="nestedPacks" value="Female,Male" />
+    <option name="outputFormat" value="backing_property" />
+    <option name="packageName" value="com.kmlc.strongo.ui.component.icons.muscle" />
+  </component>
+</project>

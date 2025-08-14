@@ -27,6 +27,10 @@ import com.kmlc.strongo.R
 import com.kmlc.strongo.ui.component.IconClass
 import com.kmlc.strongo.ui.component.IconView
 import com.kmlc.strongo.ui.component.HorizontalCard
+import com.kmlc.strongo.ui.component.icons.StronGoIcons
+import com.kmlc.strongo.ui.component.icons.filled.BarChart
+import com.kmlc.strongo.ui.component.icons.filled.LineStyle
+import com.kmlc.strongo.ui.component.icons.outlined.LocalFireDepartment
 import com.kmlc.strongo.ui.content.TrendsData
 
 @Composable
@@ -100,7 +104,7 @@ fun TrendsSection(
                     ) {
                         IconView(
                             modifier = Modifier.Companion.size(20.dp),
-                            icon = IconClass.PainterIcon(painterResource(R.drawable.ic_local_fire_department)),
+                            icon = IconClass.Vector(StronGoIcons.Filled.BarChart),
                             description = "Volume",
                             tint = Color.Companion.White
                         )
@@ -127,7 +131,7 @@ fun TrendsSection(
                     ) {
                         IconView(
                             modifier = Modifier.Companion.size(20.dp),
-                            icon = IconClass.PainterIcon(painterResource(R.drawable.ic_local_fire_department)),
+                            icon = IconClass.Vector(StronGoIcons.Outlined.LocalFireDepartment),
                             description = "Calories",
                             tint = Color.Companion.White
                         )
@@ -148,7 +152,7 @@ fun TrendsSection(
                     ) {
                         IconView(
                             modifier = Modifier.Companion.size(20.dp),
-                            icon = IconClass.PainterIcon(painterResource(R.drawable.ic_line_style)),
+                            icon = IconClass.Vector(StronGoIcons.Filled.LineStyle),
                             description = "Sets",
                             tint = Color.Companion.White
                         )

@@ -52,30 +52,6 @@ fun QuickActionsSection(
                     label = "",
                     showGlow = true
                 )
-                /*
-                Box(contentAlignment = Alignment.Companion.Center) {
-                    CircularProgressIndicator(
-                        progress = { recoveryPercent / 100f },
-                        modifier = Modifier.Companion.size(48.dp),
-                        color = MaterialTheme.colorScheme.secondary,
-                        strokeWidth = 2.dp
-                    )
-                    Box(
-                        modifier = Modifier.Companion
-                            .size(42.5.dp)
-                            .border(
-                                width = 0.5.dp,
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                                shape = CircleShape
-                            )
-                    )
-                    Text(
-                        "$recoveryPercent",
-                        color = MaterialTheme.colorScheme.onTertiary,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Companion.Bold
-                    )
-                }*/
             },
             space = 16.dp,
             subtitle = "Workout Recovery",

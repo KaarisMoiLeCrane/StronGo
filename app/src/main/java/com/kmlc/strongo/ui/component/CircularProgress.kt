@@ -4,9 +4,11 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -57,49 +59,48 @@ fun CircularProgress(
         else -> label
     }
     Box(
-        modifier = Modifier.Companion
-            .size(size = size)
+        modifier = Modifier
+            .size(size)
             .background(
                 color = if (showGlow) color.copy(alpha = 0.25f) else Color.Transparent,
-                shape = RoundedCornerShape(size = size / 2f)
+                shape = RoundedCornerShape(size / 2f)
             ),
-        contentAlignment = Alignment.Companion.Center
+        contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
             progress = { animProgress },
-            modifier = Modifier.Companion.size(size = size - 8.dp),
+            modifier = Modifier.size(size - 8.dp),
             color = color,
             strokeWidth = strokeWidth,
             trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
             strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap
         )
-        // Centrage parfait
-        Column(horizontalAlignment = Alignment.Companion.CenterHorizontally) {
-            if (!label.isEmpty() || actualValue != 0) {
-                Spacer(modifier = Modifier.Companion.height(size/5))
-            }
-
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
             if (actualValue != 0) {
                 Text(
                     text = "$actualValue",
                     color = colorScheme.onTertiary,
                     fontSize = fontSize,
                     style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Companion.Bold,
-                    modifier = Modifier.Companion.weight(1f)
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
                 )
             }
-
-            if (!finalLabel.isEmpty()) {
+            if (finalLabel.isNotEmpty()) {
                 Text(
                     text = finalLabel,
                     color = color,
-                    fontSize = if (label.length > 10) 10.sp else 13.sp, // Option 1
-                    fontWeight = FontWeight.Companion.Medium,
+                    fontSize = if (label.length > 10) 10.sp else 13.sp,
+                    fontWeight = FontWeight.Medium,
                     maxLines = 1,
-                    overflow = TextOverflow.Companion.Ellipsis, // Option 2
-                    textAlign = TextAlign.Companion.Center,
-                    modifier = Modifier.Companion.weight(1.5f)
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }

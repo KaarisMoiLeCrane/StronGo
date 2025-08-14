@@ -9,15 +9,17 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.kmlc.strongo.R
 import com.kmlc.strongo.ui.component.IconClass
 import com.kmlc.strongo.ui.component.IconView
 import com.kmlc.strongo.ui.component.VerticalCard
+import com.kmlc.strongo.ui.component.icons.StronGoIcons
+import com.kmlc.strongo.ui.component.icons.filled.AutoAwesome
+import com.kmlc.strongo.ui.component.icons.outlined.Bookmarks
 
 @Composable
 fun FeelingDifferentSection(
@@ -43,8 +45,9 @@ fun FeelingDifferentSection(
                     modifier = Modifier.Companion.width(130.dp),
                     composableElement = {
                         IconView(
-                            icon = IconClass.PainterIcon(painterResource(R.drawable.ic_auto_awesome)),
-                            description = "Custom"
+                            icon = IconClass.Vector(StronGoIcons.Filled.AutoAwesome),
+                            description = "Custom",
+                            tint = colorScheme.onTertiary
                         )
                     },
                     title = "Custom",
@@ -57,8 +60,9 @@ fun FeelingDifferentSection(
                     modifier = Modifier.Companion.width(130.dp),
                     composableElement = {
                         IconView(
-                            icon = IconClass.PainterIcon(painterResource(R.drawable.ic_bookmarks)),
-                            description = "Favorites"
+                            icon = IconClass.Vector(StronGoIcons.Outlined.Bookmarks),
+                            description = "Favorites",
+                            tint = colorScheme.onTertiary
                         )
                     },
                     title = "Favorites",
@@ -72,7 +76,8 @@ fun FeelingDifferentSection(
                     composableElement = {
                         IconView(
                             icon = IconClass.Vector(Icons.Default.PlayArrow),
-                            description = "Empty"
+                            description = "Empty",
+                            tint = colorScheme.onTertiary
                         )
                     },
                     title = "Empty",

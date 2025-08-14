@@ -10,12 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.kmlc.strongo.R
 import com.kmlc.strongo.ui.component.IconClass
 import com.kmlc.strongo.ui.component.IconView
 import com.kmlc.strongo.ui.component.HorizontalCard
+import com.kmlc.strongo.ui.component.icons.StronGoIcons
+import com.kmlc.strongo.ui.component.icons.filled.FitnessCenter
 import com.kmlc.strongo.ui.component.polygonShape
 
 @Composable
@@ -42,7 +42,7 @@ fun StrengthScoreSection(
     )
 
     HorizontalCard(
-        modifier = Modifier.Companion
+        modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 12.dp),
         composableElement = {
@@ -54,7 +54,7 @@ fun StrengthScoreSection(
                 contentAlignment = Alignment.Companion.Center
             ) {
                 IconView(
-                    icon = IconClass.PainterIcon(painterResource(R.drawable.ic_fitness_center)),
+                    icon = IconClass.Vector(StronGoIcons.Filled.FitnessCenter),
                     description = "Strength Score",
                     tint = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.Companion.size(24.dp)
