@@ -4,16 +4,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.kmlc.strongo.ui.component.MuscleCard
-import com.kmlc.strongo.ui.component.StaticGrid
+import com.kmlc.strongo.ui.component.view.IconClass
+import com.kmlc.strongo.ui.component.card.MuscleCard
+import com.kmlc.strongo.ui.component.utils.StaticGrid
 
 data class MuscleMenuItem(
     val label: String,
-    val icon: Painter,
+    val icon: IconClass,
     val layer: ImageVector? = null,
     val count: Int,
     val total: Int,

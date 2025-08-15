@@ -10,13 +10,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.kmlc.strongo.ui.component.IconClass
-import com.kmlc.strongo.ui.component.IconView
-import com.kmlc.strongo.ui.component.HorizontalCard
+import com.kmlc.strongo.R
+import com.kmlc.strongo.ui.component.card.HorizontalCard
 import com.kmlc.strongo.ui.component.icons.StronGoIcons
 import com.kmlc.strongo.ui.component.icons.filled.FitnessCenter
-import com.kmlc.strongo.ui.component.polygonShape
+import com.kmlc.strongo.ui.component.utils.polygonShape
+import com.kmlc.strongo.ui.component.view.IconClass
+import com.kmlc.strongo.ui.component.view.IconView
 
 @Composable
 fun StrengthScoreSection(
@@ -36,7 +38,7 @@ fun StrengthScoreSection(
     }
 
     Text(
-        text = "Strength Score",
+        text = stringResource(R.string.strength_score),
         color = MaterialTheme.colorScheme.onBackground,
         style = MaterialTheme.typography.titleMedium
     )
@@ -45,26 +47,23 @@ fun StrengthScoreSection(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 12.dp),
-        composableElement = {
-            Box(
-                modifier = Modifier.Companion
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.primary, shape = polygonShape(6))
-                    .padding(6.dp),
-                contentAlignment = Alignment.Companion.Center
-            ) {
-                IconView(
-                    icon = IconClass.Vector(StronGoIcons.Filled.FitnessCenter),
-                    description = "Strength Score",
-                    tint = MaterialTheme.colorScheme.tertiary,
-                    modifier = Modifier.Companion.size(24.dp)
-                )
-            }
-
-        },
-        subtitle = strengthScoreSubTitle,
         title = strengthScoreTitle,
-        onClick = onClick,
-        colorScheme = MaterialTheme.colorScheme
-    )
+        subtitle = strengthScoreSubTitle,
+        onClick = onClick
+    ) {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .background(MaterialTheme.colorScheme.primary, shape = polygonShape(6))
+                .padding(6.dp),
+            contentAlignment = Alignment.Companion.Center
+        ) {
+            IconView(
+                icon = IconClass.Vector(StronGoIcons.Filled.FitnessCenter),
+                description = "Strength Score",
+                tint = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier.size(24.dp)
+            )
+        }
+    }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StronGo</string>
+    <string name="strength_score">Score de Force</string>
+    <string name="home">Accueil</string>
+    <string name="schedule">Calendrier</string>
+    <string name="workouts">Entrainements</string>
+    <string name="profile">Profil</string>
+    <string name="on_battery">Sur Batterie</string>
+    <string name="wired">Branché</string>
+    <string name="info">Info</string>
+    <string name="level">Niveau</string>
+    <string name="strength_weight_ratio">Ratio force/poids</string>
+    <string name="strength_weight_ratio_value">%1$s: %2$.2fx</string>
+    <string name="weekly_trend">Tendance Hebdo</string>
+    <string name="details">Détails</string>
+    <string name="ok">OK</string>
+    <string name="how_it_works">Comment ça marche?</string>
+    <string name="strength_score_info_card">"     Votre Score de Force est calculé à partir de      • Votre 1RM (meilleure perf 3 derniers mois)      • Exercices haltères/barres, séparés par groupe musculaire      • Sexe, âge et poids corporel (standards ajustés)        Le score reflète votre force absolue ET relative, et évolue selon vos progrès et vos changements physiques.       Cliquez sur chaque groupe musculaire pour voir les exercices qui le composent.     "</string>
+</resources>

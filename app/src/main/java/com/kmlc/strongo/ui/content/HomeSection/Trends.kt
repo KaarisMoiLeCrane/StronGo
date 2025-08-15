@@ -21,16 +21,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.kmlc.strongo.R
-import com.kmlc.strongo.ui.component.IconClass
-import com.kmlc.strongo.ui.component.IconView
-import com.kmlc.strongo.ui.component.HorizontalCard
+import com.kmlc.strongo.ui.component.card.HorizontalCard
 import com.kmlc.strongo.ui.component.icons.StronGoIcons
 import com.kmlc.strongo.ui.component.icons.filled.BarChart
 import com.kmlc.strongo.ui.component.icons.filled.LineStyle
 import com.kmlc.strongo.ui.component.icons.outlined.LocalFireDepartment
+import com.kmlc.strongo.ui.component.view.IconClass
+import com.kmlc.strongo.ui.component.view.IconView
 import com.kmlc.strongo.ui.content.TrendsData
 
 @Composable
@@ -40,7 +38,7 @@ fun TrendsSection(
     trendsPeriod: String = "Past 7 days"
 ) {
     Row(
-        modifier = Modifier.Companion.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
@@ -50,7 +48,7 @@ fun TrendsSection(
         )
         Row(
             verticalAlignment = Alignment.Companion.CenterVertically,
-            modifier = Modifier.Companion.clickable { onTrendsPeriodChange("Past 7 days") }
+            modifier = Modifier.clickable { onTrendsPeriodChange("Past 7 days") }
         ) {
             Text(
                 text = trendsPeriod,
@@ -64,104 +62,96 @@ fun TrendsSection(
             )
         }
     }
-    Spacer(Modifier.Companion.height(12.dp))
+    Spacer(Modifier.height(12.dp))
     Column(
-        modifier = Modifier.Companion.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     ) {
         Row(
-            modifier = Modifier.Companion.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             HorizontalCard(
-                modifier = Modifier.Companion.weight(1f),
-                composableElement = {
-                    Box(
-                        modifier = Modifier.Companion
-                            .size(32.dp)
-                            .background(Color(0xFF6C8FF7), CircleShape),
-                        contentAlignment = Alignment.Companion.Center
-                    ) {
-                        IconView(
-                            modifier = Modifier.Companion.size(20.dp),
-                            icon = IconClass.Vector(Icons.Default.Check),
-                            description = "Custom",
-                            tint = Color.Companion.White
-                        )
-                    }
-                },
-                description = "Workouts",
+                modifier = Modifier.weight(1f),
                 subtitle = trends.workouts,
-                colorScheme = MaterialTheme.colorScheme
-            )
+                description = "Workouts"
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .background(Color(0xFF6C8FF7), CircleShape),
+                    contentAlignment = Alignment.Companion.Center
+                ) {
+                    IconView(
+                        modifier = Modifier.size(20.dp),
+                        icon = IconClass.Vector(Icons.Default.Check),
+                        description = "Custom",
+                        tint = Color.Companion.White
+                    )
+                }
+            }
             HorizontalCard(
-                modifier = Modifier.Companion.weight(1f),
-                composableElement = {
-                    Box(
-                        modifier = Modifier.Companion
-                            .size(32.dp)
-                            .background(Color(0xFF33CFCF), CircleShape),
-                        contentAlignment = Alignment.Companion.Center
-                    ) {
-                        IconView(
-                            modifier = Modifier.Companion.size(20.dp),
-                            icon = IconClass.Vector(StronGoIcons.Filled.BarChart),
-                            description = "Volume",
-                            tint = Color.Companion.White
-                        )
-                    }
-                },
-                description = "Volume",
+                modifier = Modifier.weight(1f),
                 subtitle = trends.volume,
-                colorScheme = MaterialTheme.colorScheme
-            )
+                description = "Volume"
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .background(Color(0xFF33CFCF), CircleShape),
+                    contentAlignment = Alignment.Companion.Center
+                ) {
+                    IconView(
+                        modifier = Modifier.size(20.dp),
+                        icon = IconClass.Vector(StronGoIcons.Filled.BarChart),
+                        description = "Volume",
+                        tint = Color.Companion.White
+                    )
+                }
+            }
         }
-        Spacer(Modifier.Companion.height(16.dp))
+        Spacer(Modifier.height(16.dp))
         Row(
-            modifier = Modifier.Companion.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             HorizontalCard(
-                modifier = Modifier.Companion.weight(1f),
-                composableElement = {
-                    Box(
-                        modifier = Modifier.Companion
-                            .size(32.dp)
-                            .background(Color(0xFFFF8BC1), CircleShape),
-                        contentAlignment = Alignment.Companion.Center
-                    ) {
-                        IconView(
-                            modifier = Modifier.Companion.size(20.dp),
-                            icon = IconClass.Vector(StronGoIcons.Outlined.LocalFireDepartment),
-                            description = "Calories",
-                            tint = Color.Companion.White
-                        )
-                    }
-                },
-                description = "Calories",
+                modifier = Modifier.weight(1f),
                 subtitle = trends.calories,
-                colorScheme = MaterialTheme.colorScheme
-            )
+                description = "Calories"
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .background(Color(0xFFFF8BC1), CircleShape),
+                    contentAlignment = Alignment.Companion.Center
+                ) {
+                    IconView(
+                        modifier = Modifier.size(20.dp),
+                        icon = IconClass.Vector(StronGoIcons.Outlined.LocalFireDepartment),
+                        description = "Calories",
+                        tint = Color.Companion.White
+                    )
+                }
+            }
             HorizontalCard(
-                modifier = Modifier.Companion.weight(1f),
-                composableElement = {
-                    Box(
-                        modifier = Modifier.Companion
-                            .size(32.dp)
-                            .background(Color(0xFFB48CFF), CircleShape),
-                        contentAlignment = Alignment.Companion.Center
-                    ) {
-                        IconView(
-                            modifier = Modifier.Companion.size(20.dp),
-                            icon = IconClass.Vector(StronGoIcons.Filled.LineStyle),
-                            description = "Sets",
-                            tint = Color.Companion.White
-                        )
-                    }
-                },
-                description = "Sets",
+                modifier = Modifier.weight(1f),
                 subtitle = trends.sets,
-                colorScheme = MaterialTheme.colorScheme
-            )
+                description = "Sets"
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .background(Color(0xFFB48CFF), CircleShape),
+                    contentAlignment = Alignment.Companion.Center
+                ) {
+                    IconView(
+                        modifier = Modifier.size(20.dp),
+                        icon = IconClass.Vector(StronGoIcons.Filled.LineStyle),
+                        description = "Sets",
+                        tint = Color.Companion.White
+                    )
+                }
+            }
         }
     }
 }

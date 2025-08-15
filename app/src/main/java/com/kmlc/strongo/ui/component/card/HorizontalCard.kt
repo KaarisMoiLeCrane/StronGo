@@ -1,4 +1,4 @@
-package com.kmlc.strongo.ui.component
+package com.kmlc.strongo.ui.component.card
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -10,59 +10,76 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+/**
+ * A horizontal card component that displays a title, subtitle, and description.
+ *
+ * @param modifier Modifier to be applied to the card.
+ * @param title The title text to display.
+ * @param subtitle The subtitle text to display.
+ * @param description The description text to display.
+ * @param cardColor The background color of the card.
+ * @param titleColor The color of the title text.
+ * @param subtitleColor The color of the subtitle text.
+ * @param descriptionColor The color of the description text.
+ * @param onClick Callback function to be invoked when the card is clicked.
+ * @param content Composable content to be displayed inside the card.
+ */
 @Composable
 fun HorizontalCard(
     modifier: Modifier = Modifier,
-    composableElement: @Composable () -> Unit,
-    description: String = "",
-    subtitle: String = "",
     title: String = "",
+    subtitle: String = "",
+    description: String = "",
+    cardColor: Color = MaterialTheme.colorScheme.tertiary,
+    titleColor: Color = MaterialTheme.colorScheme.onTertiary,
+    subtitleColor: Color = MaterialTheme.colorScheme.onTertiary,
+    descriptionColor: Color = MaterialTheme.colorScheme.onSurface,
     onClick: () -> Unit = {},
-    colorScheme: ColorScheme
+    content: @Composable () -> Unit
 ) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = colorScheme.tertiary)
+        shape = RoundedCornerShape(size = 16.dp),
+        colors = CardDefaults.cardColors(containerColor = cardColor)
     ) {
         Row(
             verticalAlignment = Alignment.Companion.CenterVertically,
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .fillMaxSize()
                 .clickable { onClick() }
-                .padding(16.dp)
+                .padding(all = 16.dp)
         ) {
-            composableElement()
+            content()
 
-            Spacer(Modifier.Companion.width(12.dp))
+            Spacer(Modifier.width(width = 12.dp))
             Column {
                 if (!title.isEmpty()) {
                     Text(
                         text = title,
-                        color = colorScheme.onTertiary,
+                        color = titleColor,
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
                 if (!subtitle.isEmpty()) {
                     Text(
                         text = subtitle,
-                        color = colorScheme.onTertiary,
+                        color = subtitleColor,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
                 if (!description.isEmpty()) {
                     Text(
                         text = description,
-                        color = colorScheme.onSurface,
+                        color = descriptionColor,
                         style = MaterialTheme.typography.bodySmall
                     )
                 }

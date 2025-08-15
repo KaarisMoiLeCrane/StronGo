@@ -17,13 +17,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProfileContent(innerPadding: PaddingValues) {
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF18181C))
-            .padding(innerPadding)
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
+            .background(Color(color = 0xFF18181C))
+            .padding(paddingValues = innerPadding)
+            .padding(all = 16.dp)
+            .verticalScroll(state = rememberScrollState())
     ) {
         Text(
             text = "Profile",

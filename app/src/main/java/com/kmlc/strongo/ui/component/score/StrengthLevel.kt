@@ -1,4 +1,4 @@
-package com.kmlc.strongo.ui.component
+package com.kmlc.strongo.ui.component.score
 
 import androidx.compose.ui.graphics.Color
 

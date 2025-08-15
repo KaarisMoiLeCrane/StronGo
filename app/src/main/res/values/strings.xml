@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">StronGo</string>
+    <string name="strength_score">Strength Score</string>
+    <string name="home">Home</string>
+    <string name="schedule">Schedule</string>
+    <string name="workouts">Workouts</string>
+    <string name="profile">Profile</string>
+    <string name="on_battery">On Battery</string>
+    <string name="wired">Wired</string>
+    <string name="info">Info</string>
+    <string name="level">Level</string>
+    <string name="strength_weight_ratio">Strength/Weight Ratio</string>
+    <string name="strength_weight_ratio_value">%1$s: %2$.2fx</string>
+    <string name="weekly_trend">Weekly Trend</string>
+    <string name="details">Details</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="how_it_works">How it works?</string>
+    <string name="strength_score_info_card">
+    Your Strength Score is calculated from:\n
+    • Your 1RM (best perf in the last 3 months)\n
+    • Dumbbell/barbell exercises, separated by muscle group\n
+    • Sex, age and body weight (adjusted standards)\n\n
+
+    The score reflects your absolute AND relative strength, and evolves according to your progress and physical changes.\n\n
+    Click on each muscle group to see the exercises that make it up.
+    </string>
 </resources>

@@ -10,10 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kmlc.strongo.ui.component.CircularProgress
-import com.kmlc.strongo.ui.component.IconClass
-import com.kmlc.strongo.ui.component.IconView
-import com.kmlc.strongo.ui.component.VerticalCard
+import com.kmlc.strongo.ui.component.card.VerticalCard
+import com.kmlc.strongo.ui.component.progress.CircularProgress
+import com.kmlc.strongo.ui.component.view.IconClass
+import com.kmlc.strongo.ui.component.view.IconView
 
 @Composable
 fun QuickActionsSection(
@@ -22,42 +22,38 @@ fun QuickActionsSection(
     onWorkoutRecovery: () -> Unit = {},
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier.Companion.fillMaxWidth()
+        horizontalArrangement = Arrangement.spacedBy(space = 16.dp),
+        modifier = Modifier.fillMaxWidth()
     ) {
         VerticalCard(
-            modifier = Modifier.Companion.weight(1f),
-            composableElement = {
-                IconView(
-                    icon = IconClass.Vector(Icons.Default.DateRange),
-                    description = "Upcoming Workouts"
-                )
-            },
+            modifier = Modifier.weight(weight = 1f),
             subtitle = "Upcoming Workouts",
             description = "View your next workouts",
-            onClick = onUpcomingWorkouts,
-            colorScheme = MaterialTheme.colorScheme
-        )
+            onClick = onUpcomingWorkouts
+        ) {
+            IconView(
+                icon = IconClass.Vector(imageVector = Icons.Default.DateRange),
+                description = "Upcoming Workouts"
+            )
+        }
 
         VerticalCard(
-            modifier = Modifier.Companion.weight(1f),
-            composableElement = {
-                CircularProgress(
-                    actualValue = recoveryPercent,
-                    maxValue = 100,
-                    size = 56.dp,
-                    fontSize = 16.sp,
-                    strokeWidth = 2.dp,
-                    color = MaterialTheme.colorScheme.secondary,
-                    label = "",
-                    showGlow = true
-                )
-            },
+            modifier = Modifier.weight(weight = 1f),
             space = 16.dp,
             subtitle = "Workout Recovery",
             description = "Track your recovery progress",
-            onClick = onWorkoutRecovery,
-            colorScheme = MaterialTheme.colorScheme
-        )
+            onClick = onWorkoutRecovery
+        ) {
+            CircularProgress(
+                actualValue = recoveryPercent,
+                maxValue = 100,
+                size = 56.dp,
+                fontSize = 16.sp,
+                strokeWidth = 2.dp,
+                color = MaterialTheme.colorScheme.secondary,
+                label = "",
+                showGlow = true
+            )
+        }
     }
 }

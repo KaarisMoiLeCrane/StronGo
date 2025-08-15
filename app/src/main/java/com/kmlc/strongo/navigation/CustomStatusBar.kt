@@ -17,21 +17,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.kmlc.strongo.ui.component.IconClass
-import com.kmlc.strongo.ui.component.IconView
+import com.kmlc.strongo.R
 import com.kmlc.strongo.ui.component.icons.StronGoIcons
 import com.kmlc.strongo.ui.component.icons.filled.BatteryFull
 import com.kmlc.strongo.ui.component.icons.outlined.AccessTime
 import com.kmlc.strongo.ui.component.icons.outlined.Power
+import com.kmlc.strongo.ui.component.view.IconClass
+import com.kmlc.strongo.ui.component.view.IconView
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -41,68 +44,85 @@ import java.util.Locale
 fun CustomStatusBar() {
     val context = LocalContext.current
 
-    var currentTime by remember { mutableStateOf("") }
-    var batteryLevel by remember { mutableStateOf(0) }
+    var currentTime by remember { mutableStateOf(value = "") }
+    var batteryLevel by remember { mutableIntStateOf(value = 0) }
     var isCharging by remember { mutableStateOf(false) }
 
-    // Met à jour l'heure chaque seconde
-    LaunchedEffect(Unit) {
+    // Updates hour each second
+    LaunchedEffect(key1 = Unit) {
         while (true) {
-            currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
-            delay(1000)
+            currentTime = SimpleDateFormat(/* pattern = */ "HH:mm", /* locale = */
+                Locale.getDefault()
+            ).format(Date())
+            delay(timeMillis = 1000)
         }
     }
 
-    // Écoute les changements de batterie et d'heure système
-    DisposableEffect(Unit) {
-        val batteryFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+    // Listen to battery and time changes
+    // and update the state accordingly
+    DisposableEffect(key1 = Unit) {
+        val batteryFilter = IntentFilter(/* action = */ Intent.ACTION_BATTERY_CHANGED)
         val timeFilter = IntentFilter().apply {
-            addAction(Intent.ACTION_TIME_CHANGED)
-            addAction(Intent.ACTION_TIME_TICK)
-            addAction(Intent.ACTION_TIMEZONE_CHANGED)
+            this.addAction(/* action = */ Intent.ACTION_TIME_CHANGED)
+            this.addAction(/* action = */ Intent.ACTION_TIME_TICK)
+            this.addAction(/* action = */ Intent.ACTION_TIMEZONE_CHANGED)
         }
 
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(ctx: Context?, intent: Intent?) {
                 intent?.let {
                     if (it.action == Intent.ACTION_BATTERY_CHANGED) {
-                        val status = it.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
+                        val status =
+                            it.getIntExtra(/* name = */ BatteryManager.EXTRA_STATUS, /* defaultValue = */
+                                -1
+                            )
                         isCharging =
                             status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
-                        batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+                        batteryLevel =
+                            it.getIntExtra(/* name = */ BatteryManager.EXTRA_LEVEL, /* defaultValue = */
+                                -1
+                            )
                     }
                     if (it.action == Intent.ACTION_TIME_CHANGED ||
                         it.action == Intent.ACTION_TIME_TICK ||
                         it.action == Intent.ACTION_TIMEZONE_CHANGED
                     ) {
-                        currentTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+                        currentTime = SimpleDateFormat(/* pattern = */ "HH:mm", /* locale = */
+                            Locale.getDefault()
+                        ).format(Date())
                     }
                 }
             }
         }
 
-        context.registerReceiver(receiver, batteryFilter)
-        context.registerReceiver(receiver, timeFilter)
+        context.registerReceiver(/* p0 = */ receiver, /* p1 = */ batteryFilter)
+        context.registerReceiver(/* p0 = */ receiver, /* p1 = */ timeFilter)
 
         // Initialisation
-        val batteryIntent = context.registerReceiver(null, batteryFilter)
+        val batteryIntent = context.registerReceiver(/* p0 = */ null, /* p1 = */ batteryFilter)
         batteryIntent?.let {
-            val status = it.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
+            val status =
+                it.getIntExtra(/* name = */ BatteryManager.EXTRA_STATUS, /* defaultValue = */
+                    -1
+                )
             isCharging =
                 status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
-            batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+            batteryLevel =
+                it.getIntExtra(/* name = */ BatteryManager.EXTRA_LEVEL, /* defaultValue = */
+                    -1
+                )
         }
 
         onDispose {
-            context.unregisterReceiver(receiver)
+            context.unregisterReceiver(/* p0 = */ receiver)
         }
     }
 
     Row(
-        modifier = Modifier.Companion
+        modifier = Modifier
             .fillMaxWidth()
-            .height(40.dp)
-            .background(Color(0xFF18181C))
+            .height(height = 40.dp)
+            .background(Color(color = 0xFF18181C))
             .padding(top = 8.dp, start = 16.dp, end = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Companion.CenterVertically
@@ -112,14 +132,14 @@ fun CustomStatusBar() {
             verticalAlignment = Alignment.Companion.CenterVertically
         ) {
             Text(
-                currentTime,
+                text = currentTime,
                 color = Color.Companion.White,
                 style = MaterialTheme.typography.bodyMedium
             )
-            Spacer(modifier = Modifier.Companion.padding(horizontal = 4.dp))
+            Spacer(modifier = Modifier.padding(horizontal = 4.dp))
 
             IconView(
-                icon = IconClass.Vector(StronGoIcons.Outlined.AccessTime),
+                icon = IconClass.Vector(imageVector = StronGoIcons.Outlined.AccessTime),
                 description = "Hour",
                 tint = Color.Companion.White
             )
@@ -130,21 +150,23 @@ fun CustomStatusBar() {
             verticalAlignment = Alignment.Companion.CenterVertically
         ) {
             Text(
-                "$batteryLevel%",
+                text = "$batteryLevel%",
                 color = Color.Companion.White,
                 style = MaterialTheme.typography.bodyMedium
             )
 
             val chargingPainter = if (isCharging) {
-                IconClass.Vector(StronGoIcons.Outlined.Power)
+                IconClass.Vector(imageVector = StronGoIcons.Outlined.Power)
             } else {
-                IconClass.Vector(StronGoIcons.Filled.BatteryFull)
+                IconClass.Vector(imageVector = StronGoIcons.Filled.BatteryFull)
             }
 
-            Spacer(modifier = Modifier.Companion.padding(horizontal = 4.dp))
+            Spacer(modifier = Modifier.padding(horizontal = 4.dp))
             IconView(
                 icon = chargingPainter,
-                description = if (isCharging) "Branché" else "Sur batterie",
+                description = if (isCharging) stringResource(id = R.string.wired) else stringResource(
+                    id = R.string.on_battery
+                ),
                 tint = Color.Companion.White
             )
         }

@@ -1,11 +1,12 @@
 package com.kmlc.strongo.ui.content
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
-import com.kmlc.strongo.R
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.kmlc.strongo.R
 import com.kmlc.strongo.ui.content.HomeSection.CentralCardSection
 import com.kmlc.strongo.ui.content.HomeSection.FeelingDifferentSection
 import com.kmlc.strongo.ui.content.HomeSection.QuickActionsSection
@@ -64,11 +65,11 @@ fun HomeContent(
         onEmptySession = onEmptySession
     )
 
-    Spacer(Modifier.height(24.dp))
+    Spacer(Modifier.height(height = 24.dp))
 
     StrengthScoreSection(
         strengthScore = strengthScore,
-        onClick = { navController.navigate("StrengthScoreDetails") }
+        onClick = { navController.navigate(route = "StrengthScoreDetails") }
     )
 
     TrendsSection(
@@ -77,7 +78,7 @@ fun HomeContent(
         trendsPeriod = trendsPeriod
     )
 
-    Spacer(Modifier.height(24.dp))
+    Spacer(Modifier.height(height = 24.dp))
 }
 
 // Data model pour trends

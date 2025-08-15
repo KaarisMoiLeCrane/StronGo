@@ -1,14 +1,16 @@
-package com.kmlc.strongo.ui.component
+package com.kmlc.strongo.ui.component.utils
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.layout.*
 
 /**
  * A static grid layout (no scroll) for any item type.
@@ -25,29 +27,29 @@ fun <T> StaticGrid(
     items: List<T>,
     columns: Int,
     modifier: Modifier = Modifier,
-    horizontalSpacing: androidx.compose.ui.unit.Dp = 0.dp,
-    verticalSpacing: androidx.compose.ui.unit.Dp = 0.dp,
+    horizontalSpacing: Dp = 0.dp,
+    verticalSpacing: Dp = 0.dp,
     content: @Composable (item: T) -> Unit
 ) {
     Column(modifier = modifier) {
-        items.chunked(columns).forEach { rowItems ->
+        items.chunked(size = columns).forEach { rowItems ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(horizontalSpacing)
+                horizontalArrangement = Arrangement.spacedBy(space = horizontalSpacing)
             ) {
                 rowItems.forEach { item ->
-                    Box(modifier = Modifier.weight(1f)) {
+                    Box(modifier = Modifier.weight(weight = 1f)) {
                         content(item)
                     }
                 }
                 if (rowItems.size < columns) {
-                    repeat(columns - rowItems.size) {
-                        Spacer(Modifier.weight(1f))
+                    repeat(times = columns - rowItems.size) {
+                        Spacer(Modifier.weight(weight = 1f))
                     }
                 }
             }
             if (verticalSpacing > 0.dp) {
-                Spacer(Modifier.height(verticalSpacing))
+                Spacer(Modifier.height(height = verticalSpacing))
             }
         }
     }

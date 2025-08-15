@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kmlc.strongo.R
-import com.kmlc.strongo.ui.component.ActionButton
+import com.kmlc.strongo.ui.component.button.ActionButton
 
 @Composable
 fun CentralCardSection(
@@ -52,7 +52,7 @@ fun CentralCardSection(
     onShare: () -> Unit = {},
 ) {
     Card(
-        modifier = Modifier.Companion
+        modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 16.dp),
         shape = RoundedCornerShape(16.dp),
@@ -64,7 +64,7 @@ fun CentralCardSection(
             Column {
                 // Top label
                 Box(
-                    modifier = Modifier.Companion
+                    modifier = Modifier
                         .background(
                             MaterialTheme.colorScheme.primary,
                             RoundedCornerShape(topStart = 8.dp, bottomEnd = 8.dp)
@@ -80,45 +80,45 @@ fun CentralCardSection(
                 }
             }
             Column(
-                modifier = Modifier.Companion.padding(
+                modifier = Modifier.padding(
                     start = 16.dp,
                     end = 16.dp,
                     bottom = 16.dp
                 )
             ) {
-                Spacer(Modifier.Companion.height(12.dp))
+                Spacer(Modifier.height(12.dp))
                 Text(
                     text = workoutTitle,
                     color = MaterialTheme.colorScheme.onTertiary,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Companion.Bold
                 )
-                Spacer(Modifier.Companion.height(4.dp))
+                Spacer(Modifier.height(4.dp))
                 Text(
                     text = workoutDetails,
                     color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f),
                     style = MaterialTheme.typography.bodySmall,
                 )
-                Spacer(Modifier.Companion.height(12.dp))
+                Spacer(Modifier.height(12.dp))
                 LazyRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.Companion.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     items(workoutImages.size) { index ->
                         Image(
                             painter = painterResource(id = workoutImages[index]),
                             contentDescription = null,
-                            modifier = Modifier.Companion
+                            modifier = Modifier
                                 .size(64.dp)
                                 .clip(androidx.compose.foundation.shape.RoundedCornerShape(16.dp)),
                             contentScale = ContentScale.Companion.Crop
                         )
                     }
                 }
-                Spacer(Modifier.Companion.height(16.dp))
+                Spacer(Modifier.height(16.dp))
                 Row(
                     horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.Companion.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     ActionButton(
                         icon = Icons.AutoMirrored.Filled.ArrowForward,
