@@ -2,9 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
+
     namespace = "com.kmlc.strongo"
     compileSdk = 36
 
@@ -31,8 +33,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
     }
     buildFeatures {
         compose = true
@@ -52,9 +56,10 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.androidx.foundation)
     implementation(libs.ui.graphics)
-    implementation(libs.filament.android)
     implementation(libs.ui)
     implementation(libs.material3)
+    implementation("androidx.room:room-runtime:${libs.versions.room.get()}")
+    ksp(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

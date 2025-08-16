@@ -24,11 +24,20 @@ import com.kmlc.strongo.ui.component.view.IconView
 fun StrengthScoreSection(
     strengthScore: Int? = null,
     onClick: () -> Unit = {},
+    textColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onBackground,
+    cardBackgroundColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.surface,
+    cardTitleColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurface,
+    cardSubtitleColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    iconBackgroundColor: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.primary,
+    iconTint: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.tertiary
 ) {
     val strengthScoreSubTitle = if (strengthScore == null) {
-        "You need to complete a few workouts before you can see your score."
+        stringResource(id = R.string.you_need_to_complete_a_few_workouts_before_you_can_see_your_score)
     } else {
-        "Your Strength Score"
+        stringResource(
+            id = R.string.your_strength_score,
+            /* ...formatArgs = */ strengthScore
+        )
     }
 
     val strengthScoreTitle = if (strengthScore != null) {
@@ -38,8 +47,8 @@ fun StrengthScoreSection(
     }
 
     Text(
-        text = stringResource(R.string.strength_score),
-        color = MaterialTheme.colorScheme.onBackground,
+        text = stringResource(id = R.string.strength_score),
+        color = textColor,
         style = MaterialTheme.typography.titleMedium
     )
 
@@ -49,20 +58,23 @@ fun StrengthScoreSection(
             .padding(vertical = 12.dp),
         title = strengthScoreTitle,
         subtitle = strengthScoreSubTitle,
-        onClick = onClick
+        onClick = onClick,
+        cardColor = cardBackgroundColor,
+        titleColor = cardTitleColor,
+        subtitleColor = cardSubtitleColor
     ) {
         Box(
             modifier = Modifier
-                .size(40.dp)
-                .background(MaterialTheme.colorScheme.primary, shape = polygonShape(6))
-                .padding(6.dp),
-            contentAlignment = Alignment.Companion.Center
+                .size(size = 40.dp)
+                .background(color = iconBackgroundColor, shape = polygonShape(sides = 6))
+                .padding(all = 6.dp),
+            contentAlignment = Alignment.Center
         ) {
             IconView(
-                icon = IconClass.Vector(StronGoIcons.Filled.FitnessCenter),
-                description = "Strength Score",
-                tint = MaterialTheme.colorScheme.tertiary,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(size = 24.dp),
+                icon = IconClass.Vector(imageVector = StronGoIcons.Filled.FitnessCenter),
+                description = stringResource(id = R.string.strength_score),
+                tint = iconTint
             )
         }
     }

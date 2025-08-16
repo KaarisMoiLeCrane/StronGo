@@ -17,4 +17,25 @@
     <string name="ok">OK</string>
     <string name="how_it_works">Comment ça marche?</string>
     <string name="strength_score_info_card">"     Votre Score de Force est calculé à partir de      • Votre 1RM (meilleure perf 3 derniers mois)      • Exercices haltères/barres, séparés par groupe musculaire      • Sexe, âge et poids corporel (standards ajustés)        Le score reflète votre force absolue ET relative, et évolue selon vos progrès et vos changements physiques.       Cliquez sur chaque groupe musculaire pour voir les exercices qui le composent.     "</string>
+    <string name="feeling_like_something_different">Envie de quelque chose de différent?</string>
+    <string name="create_a_freestyle_session">Créer une session freestyle</string>
+    <string name="pick_from_your_saved_workouts">Choisissez parmi vos entraînements enregistrés</string>
+    <string name="full_control_over_your_workout">Contrôle total sur votre entraînement</string>
+    <string name="upcoming_workouts">Entraînements à Venir</string>
+    <string name="view_your_next_workouts">Consultez vos prochains entraînements</string>
+    <string name="workout_recovery">"Récupération d'Entraînement "</string>
+    <string name="track_your_recovery_progress">Suivez la progression de votre récupération</string>
+    <string name="you_need_to_complete_a_few_workouts_before_you_can_see_your_score">Vous devez effectuer quelques entraînements avant de pouvoir voir votre score.</string>
+    <string name="your_strength_score">Ton Score de Force</string>
+    <string name="past_7_days">7 Derniers Jours</string>
+    <string name="change_period">Changer de période</string>
+    <string name="trends">Tendances</string>
+    <string name="custom">Personnalisé</string>
+    <string name="volume">Volume</string>
+    <string name="calories">Calories</string>
+    <string name="sets">Séries</string>
+    <string name="search_exercises">Rechercher des exercices</string>
+    <string name="by_muscle">Par muscle</string>
+    <string name="favorites">Favoris</string>
+    <string name="empty">Vide</string>
 </resources>

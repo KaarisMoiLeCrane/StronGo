@@ -74,8 +74,8 @@ fun StrengthScoreDetailsContent(
         onClick = { }
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             GraphData(
                 score = score,
@@ -98,11 +98,11 @@ fun StrengthScoreDetailsContent(
             }
         }
         if (strengthWeightRatio != null) {
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.height(height = 6.dp))
             Text(
                 text = stringResource(
                     id = R.string.strength_weight_ratio_value,
-                    stringResource(id = R.string.strength_weight_ratio),
+                    /* ...formatArgs = */ stringResource(id = R.string.strength_weight_ratio),
                     strengthWeightRatio
                 ),
                 color = ratioColor,
@@ -111,7 +111,7 @@ fun StrengthScoreDetailsContent(
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(height = 16.dp))
 
         MuscleScoreBreakdown(muscleScores)
     }

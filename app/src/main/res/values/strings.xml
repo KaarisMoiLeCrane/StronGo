@@ -13,7 +13,7 @@
     <string name="strength_weight_ratio_value">%1$s: %2$.2fx</string>
     <string name="weekly_trend">Weekly Trend</string>
     <string name="details">Details</string>
-    <string name="ok" translatable="false">OK</string>
+    <string name="ok">OK</string>
     <string name="how_it_works">How it works?</string>
     <string name="strength_score_info_card">
     Your Strength Score is calculated from:\n
@@ -24,4 +24,25 @@
     The score reflects your absolute AND relative strength, and evolves according to your progress and physical changes.\n\n
     Click on each muscle group to see the exercises that make it up.
     </string>
+    <string name="feeling_like_something_different">Feeling like something different?</string>
+    <string name="create_a_freestyle_session">Create a freestyle session</string>
+    <string name="pick_from_your_saved_workouts">Pick from your saved workouts</string>
+    <string name="full_control_over_your_workout">Full control over your workout</string>
+    <string name="upcoming_workouts">Upcoming Workouts</string>
+    <string name="view_your_next_workouts">View your next workouts</string>
+    <string name="workout_recovery">Workout Recovery</string>
+    <string name="track_your_recovery_progress">Track your recovery progress</string>
+    <string name="you_need_to_complete_a_few_workouts_before_you_can_see_your_score">You need to complete a few workouts before you can see your score.</string>
+    <string name="your_strength_score">Your Strength Score</string>
+    <string name="past_7_days">Past 7 days</string>
+    <string name="change_period">Change period</string>
+    <string name="trends">Trends</string>
+    <string name="custom">Custom</string>
+    <string name="volume">Volume</string>
+    <string name="calories">Calories</string>
+    <string name="sets">Sets</string>
+    <string name="search_exercises">Search exercises</string>
+    <string name="by_muscle">By muscle</string>
+    <string name="favorites">Favorites</string>
+    <string name="empty">Empty</string>
 </resources>

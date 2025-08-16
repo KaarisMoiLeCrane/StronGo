@@ -12,7 +12,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.kmlc.strongo.R
 import com.kmlc.strongo.ui.component.card.VerticalCard
 import com.kmlc.strongo.ui.component.icons.StronGoIcons
 import com.kmlc.strongo.ui.component.icons.filled.AutoAwesome
@@ -24,11 +27,13 @@ import com.kmlc.strongo.ui.component.view.IconView
 fun FeelingDifferentSection(
     onCustomSession: () -> Unit = {},
     onFavorites: () -> Unit = {},
-    onEmptySession: () -> Unit = {}
+    onEmptySession: () -> Unit = {},
+    textColor: Color = MaterialTheme.colorScheme.onBackground,
+    iconColor: Color = MaterialTheme.colorScheme.onTertiary
 ) {
     Text(
-        text = "Feeling like something different?",
-        color = MaterialTheme.colorScheme.onBackground,
+        text = stringResource(id = R.string.feeling_like_something_different),
+        color = textColor,
         style = MaterialTheme.typography.titleMedium,
         modifier = Modifier.padding(vertical = 12.dp)
     )
@@ -42,40 +47,40 @@ fun FeelingDifferentSection(
             when (i) {
                 0 -> VerticalCard(
                     modifier = Modifier.width(width = 130.dp),
-                    title = "Custom",
-                    description = "Create a freestyle session",
+                    title = stringResource(id = R.string.custom),
+                    description = stringResource(id = R.string.create_a_freestyle_session),
                     onClick = onCustomSession
                 ) {
                     IconView(
                         icon = IconClass.Vector(imageVector = StronGoIcons.Filled.AutoAwesome),
-                        description = "Custom",
-                        tint = MaterialTheme.colorScheme.onTertiary
+                        description = stringResource(id = R.string.custom),
+                        tint = iconColor
                     )
                 }
 
                 1 -> VerticalCard(
                     modifier = Modifier.width(width = 130.dp),
-                    title = "Favorites",
-                    description = "Pick from your saved workouts",
+                    title = stringResource(id = R.string.favorites),
+                    description = stringResource(id = R.string.pick_from_your_saved_workouts),
                     onClick = onFavorites
                 ) {
                     IconView(
                         icon = IconClass.Vector(imageVector = StronGoIcons.Outlined.Bookmarks),
-                        description = "Favorites",
-                        tint = MaterialTheme.colorScheme.onTertiary
+                        description = stringResource(id = R.string.favorites),
+                        tint = iconColor
                     )
                 }
 
                 2 -> VerticalCard(
                     modifier = Modifier.width(width = 130.dp),
-                    title = "Empty",
-                    description = "Full control over your workout",
+                    title = stringResource(id = R.string.empty),
+                    description = stringResource(id = R.string.full_control_over_your_workout),
                     onClick = onEmptySession
                 ) {
                     IconView(
                         icon = IconClass.Vector(imageVector = Icons.Default.PlayArrow),
-                        description = "Empty",
-                        tint = MaterialTheme.colorScheme.onTertiary
+                        description = stringResource(id = R.string.empty),
+                        tint = iconColor
                     )
                 }
             }

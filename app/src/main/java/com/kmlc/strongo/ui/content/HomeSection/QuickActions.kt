@@ -8,8 +8,10 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kmlc.strongo.R
 import com.kmlc.strongo.ui.component.card.VerticalCard
 import com.kmlc.strongo.ui.component.progress.CircularProgress
 import com.kmlc.strongo.ui.component.view.IconClass
@@ -27,21 +29,21 @@ fun QuickActionsSection(
     ) {
         VerticalCard(
             modifier = Modifier.weight(weight = 1f),
-            subtitle = "Upcoming Workouts",
-            description = "View your next workouts",
+            subtitle = stringResource(id = R.string.upcoming_workouts),
+            description = stringResource(id = R.string.view_your_next_workouts),
             onClick = onUpcomingWorkouts
         ) {
             IconView(
                 icon = IconClass.Vector(imageVector = Icons.Default.DateRange),
-                description = "Upcoming Workouts"
+                description = stringResource(id = R.string.upcoming_workouts)
             )
         }
 
         VerticalCard(
             modifier = Modifier.weight(weight = 1f),
             space = 16.dp,
-            subtitle = "Workout Recovery",
-            description = "Track your recovery progress",
+            subtitle = stringResource(id = R.string.workout_recovery),
+            description = stringResource(id = R.string.track_your_recovery_progress),
             onClick = onWorkoutRecovery
         ) {
             CircularProgress(

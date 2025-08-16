@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,6 +47,13 @@ fun CentralCardSection(
         R.drawable.muscle_dumbbell_press,
         R.drawable.muscle_crunch
     ),
+    cardColor: Color = MaterialTheme.colorScheme.tertiary,
+    cardBorderColor: Color = MaterialTheme.colorScheme.primary,
+    topLabelColor: Color = MaterialTheme.colorScheme.onPrimary,
+    topLabelBackgroundColor: Color = MaterialTheme.colorScheme.primary,
+    titleColor: Color = MaterialTheme.colorScheme.onTertiary,
+    workoutDetailsColor: Color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f),
+    onClick: () -> Unit = {},
     onSkip: () -> Unit = {},
     onRegenerate: () -> Unit = {},
     onDuration: () -> Unit = {},
@@ -55,10 +63,11 @@ fun CentralCardSection(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 16.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiary),
+        shape = RoundedCornerShape(size = 16.dp),
+        colors = CardDefaults.cardColors(containerColor = cardColor),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        border = BorderStroke(0.1.dp, MaterialTheme.colorScheme.primary)
+        border = BorderStroke(width = 0.1.dp, color = cardBorderColor),
+        onClick = onClick
     ) {
         Column {
             Column {
@@ -66,15 +75,15 @@ fun CentralCardSection(
                 Box(
                     modifier = Modifier
                         .background(
-                            MaterialTheme.colorScheme.primary,
-                            RoundedCornerShape(topStart = 8.dp, bottomEnd = 8.dp)
+                            color = topLabelBackgroundColor,
+                            shape = RoundedCornerShape(topStart = 8.dp, bottomEnd = 8.dp)
                         )
                         .align(Alignment.Companion.Start)
                         .padding(horizontal = 8.dp, vertical = 8.dp)
                 ) {
                     Text(
                         text = nextWorkoutLabel,
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = topLabelColor,
                         style = MaterialTheme.typography.labelLarge,
                     )
                 }
@@ -86,39 +95,39 @@ fun CentralCardSection(
                     bottom = 16.dp
                 )
             ) {
-                Spacer(Modifier.height(12.dp))
+                Spacer(Modifier.height(height = 12.dp))
                 Text(
                     text = workoutTitle,
-                    color = MaterialTheme.colorScheme.onTertiary,
+                    color = titleColor,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Companion.Bold
                 )
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(height = 4.dp))
                 Text(
                     text = workoutDetails,
-                    color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f),
+                    color = workoutDetailsColor,
                     style = MaterialTheme.typography.bodySmall,
                 )
-                Spacer(Modifier.height(12.dp))
+                Spacer(Modifier.height(height = 12.dp))
                 LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
                 ) {
-                    items(workoutImages.size) { index ->
+                    items(count = workoutImages.size) { index ->
                         Image(
                             painter = painterResource(id = workoutImages[index]),
                             contentDescription = null,
                             modifier = Modifier
-                                .size(64.dp)
-                                .clip(androidx.compose.foundation.shape.RoundedCornerShape(16.dp)),
+                                .size(size = 64.dp)
+                                .clip(shape = RoundedCornerShape(size = 16.dp)),
                             contentScale = ContentScale.Companion.Crop
                         )
                     }
                 }
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(height = 16.dp))
                 Row(
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
                 ) {
                     ActionButton(
                         icon = Icons.AutoMirrored.Filled.ArrowForward,
