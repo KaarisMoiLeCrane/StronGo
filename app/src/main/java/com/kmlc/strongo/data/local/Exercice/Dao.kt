@@ -1,15 +1,17 @@
-package com.kmlc.strongo.data.local.dao
+package com.kmlc.strongo.data.local.Exercice
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.kmlc.strongo.data.local.entity.ExerciceEntity
 
 @Dao
 interface ExerciceDao {
-    @Query("SELECT * FROM ExerciceEntity")
+    @Query(value = "SELECT * FROM ExerciceEntity")
     suspend fun getAll(): List<ExerciceEntity>
 
     @Insert
     suspend fun insert(exercice: ExerciceEntity)
+
+    @Query(value = "DELETE FROM ExerciceEntity")
+    suspend fun deleteAll()
 }

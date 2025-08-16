@@ -1,4 +1,4 @@
-package com.kmlc.strongo.data.local.entity
+package com.kmlc.strongo.data.local.Exercice
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

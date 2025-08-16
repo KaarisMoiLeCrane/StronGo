@@ -1,9 +1,7 @@
-package com.kmlc.strongo.data.local.repository
-
-import com.kmlc.strongo.data.local.dao.ExerciceDao
-import com.kmlc.strongo.data.local.entity.ExerciceEntity
+package com.kmlc.strongo.data.local.Exercice
 
 class ExerciceRepository(private val dao: ExerciceDao) {
     suspend fun insert(exercice: ExerciceEntity) = dao.insert(exercice)
     suspend fun getAll(): List<ExerciceEntity> = dao.getAll()
+    suspend fun deleteAll() = dao.deleteAll()
 }
