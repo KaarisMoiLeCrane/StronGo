@@ -1,28 +1,17 @@
 package com.kmlc.strongo.ui.content
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kmlc.strongo.R
-import com.kmlc.strongo.data.domain.TreatExercicesUseCase
-import com.kmlc.strongo.data.local.Exercice.ExerciceEntity
-import com.kmlc.strongo.data.local.Exercice.ExerciceRepository
-import com.kmlc.strongo.data.local.StrongoDatabase
-import com.kmlc.strongo.data.viewmodel.ExerciceViewModel
+import com.kmlc.strongo.data.viewmodel.ExerciseViewModel
+import com.kmlc.strongo.di.provideExerciseViewModel
 import com.kmlc.strongo.ui.content.HomeSection.CentralCardSection
 import com.kmlc.strongo.ui.content.HomeSection.FeelingDifferentSection
 import com.kmlc.strongo.ui.content.HomeSection.QuickActionsSection
@@ -57,31 +46,24 @@ fun HomeContent(
     trendsPeriod: String = stringResource(id = R.string.past_7_days),
     trends: TrendsData = TrendsData()
 ) {
-    val context = LocalContext.current
-    // Instantiate DAO and Repository just once
-    val exerciceDao = remember { StrongoDatabase.getInstance(context).exerciceDao() }
-    val repository = remember { ExerciceRepository(exerciceDao) }
-    val treatExercicesUseCase = remember { TreatExercicesUseCase() }
-    // Provide the repository to the ViewModel
-    val viewModel: ExerciceViewModel = viewModel(factory = ExerciceViewModel.Factory(repository, treatExercicesUseCase))
+    val exerciseViewModel: ExerciseViewModel = provideExerciseViewModel()
+    val exercises by exerciseViewModel.exercise.collectAsState()
 
-    val exercices by viewModel.exercices.collectAsState()
-
-    Column {
+    /*Column {
         Button(
             onClick = {
-                viewModel.addExercice(ExerciceEntity(nom = "Pompes", repetitions = 10))
+                exerciseViewModel.addExercise(ExerciseEntity(name = "Pompes", sets = 10))
             }
         ) {
             Text("Ajouter un exercice")
         }
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn(modifier = Modifier.height(500.dp)) {
-            items(exercices) { exercice ->
-                Text(text = exercice.nom)
+            items(exercises) { exercise ->
+                Text(text = exercise.name)
             }
         }
-    }
+    }*/
 
     CentralCardSection(
         nextWorkoutLabel = nextWorkoutLabel,

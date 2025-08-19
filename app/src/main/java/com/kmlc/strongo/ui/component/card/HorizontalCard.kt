@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
@@ -38,6 +39,7 @@ fun HorizontalCard(
     title: String = "",
     subtitle: String = "",
     description: String = "",
+    cardElevation: Dp = 2.dp,
     cardColor: Color = MaterialTheme.colorScheme.tertiary,
     titleColor: Color = MaterialTheme.colorScheme.onTertiary,
     subtitleColor: Color = MaterialTheme.colorScheme.onTertiary,
@@ -46,17 +48,17 @@ fun HorizontalCard(
     content: @Composable () -> Unit
 ) {
     Card(
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = cardElevation),
         modifier = modifier,
         shape = RoundedCornerShape(size = 16.dp),
         colors = CardDefaults.cardColors(containerColor = cardColor)
     ) {
         Row(
-            verticalAlignment = Alignment.Companion.CenterVertically,
             modifier = Modifier
                 .fillMaxSize()
                 .clickable { onClick() }
-                .padding(all = 16.dp)
+                .padding(all = 16.dp),
+            verticalAlignment = Alignment.Companion.CenterVertically
         ) {
             content()
 

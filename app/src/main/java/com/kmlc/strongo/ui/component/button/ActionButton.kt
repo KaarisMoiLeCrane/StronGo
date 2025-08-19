@@ -36,7 +36,9 @@ fun ActionButton(
     labelColor: Color = MaterialTheme.colorScheme.onSurface,
     onClick: () -> Unit
 ) {
-    Column(horizontalAlignment = Alignment.Companion.CenterHorizontally) {
+    Column(
+        horizontalAlignment = Alignment.Companion.CenterHorizontally
+    ) {
         IconButton(
             onClick = onClick,
             modifier = Modifier

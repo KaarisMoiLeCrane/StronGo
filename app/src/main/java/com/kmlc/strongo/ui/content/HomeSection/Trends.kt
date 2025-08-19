@@ -67,7 +67,7 @@ fun TrendsSection(
             ) {
                 Box(
                     modifier = Modifier
-                        .size(32.dp)
+                        .size(size = 32.dp)
                         .background(Color(color = 0xFF6C8FF7), CircleShape),
                     contentAlignment = Alignment.Companion.Center
                 ) {
