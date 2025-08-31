@@ -36,7 +36,7 @@ class UserProfileViewModel(
     fun saveProfile(
         name: String,
         age: Int,
-        gender: String,
+        gender: Int,
         weight: Float,
         size: Float,
         goal: Int,

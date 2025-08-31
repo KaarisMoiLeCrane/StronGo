@@ -50,7 +50,7 @@ fun GraphData(
         actualValue = score,
         maxValue = maxScore,
         color = level.color,
-        label = level.label,
+        label = stringResource(id = level.id),
         showGlow = true
     )
     Spacer(modifier = Modifier.width(width = 20.dp))
@@ -61,7 +61,12 @@ fun GraphData(
             color = levelColor,
             fontSize = 14.sp
         )
-        Text(text = level.label, color = level.color, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
+        Text(
+            text = stringResource(id = level.id),
+            color = level.color,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.SemiBold
+        )
 
         Spacer(modifier = Modifier.height(height = 10.dp))
 

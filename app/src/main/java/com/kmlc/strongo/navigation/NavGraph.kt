@@ -1,10 +1,12 @@
 package com.kmlc.strongo.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.kmlc.strongo.R
 import com.kmlc.strongo.data.viewmodel.UserProfileViewModel
 import com.kmlc.strongo.di.provideUserProfileViewModel
 import com.kmlc.strongo.ui.OnBoardingContent
@@ -103,7 +105,21 @@ fun WorkoutsScreen(navController: NavController, selectedIndex: Int) {
         showBottomBar = true,
         screenName = Screen.Workouts.name
     ) {
-        WorkoutsContent(navController = navController)
+        val userProfileViewModel: UserProfileViewModel = provideUserProfileViewModel()
+
+        GenericLoader(
+            flow = userProfileViewModel.profile,
+            loading = userProfileViewModel.loading,
+            onLoaded = { profile ->
+                WorkoutsContent(
+                    navController = navController,
+                    female = userProfileViewModel.profile.collectAsState().value?.gender == R.string.female
+                )
+            },
+            onEmpty = {
+                OnBoardingScreen(navController = navController)
+            }
+        )
     }
 }
 

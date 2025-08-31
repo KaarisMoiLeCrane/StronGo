@@ -8,7 +8,7 @@ data class UserProfileEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     val age: Int,
-    val gender: String,
+    val gender: Int,
     val weight: Float,
     val size: Float,
     val goal: Int,

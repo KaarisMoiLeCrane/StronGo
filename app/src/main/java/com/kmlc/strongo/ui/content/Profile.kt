@@ -88,7 +88,7 @@ fun ProfileContent(navController: NavController) {
 
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    user.gender,
+                    text = stringResource(id = user.gender),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.primary
                 )

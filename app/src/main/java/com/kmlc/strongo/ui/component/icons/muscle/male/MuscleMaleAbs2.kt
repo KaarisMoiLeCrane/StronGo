@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import com.kmlc.strongo.ui.component.icons.StronGoIcons
 
-val StronGoIcons.Muscle.Male.Abs2: ImageVector
+val StronGoIcons.Muscle.Male.RectusAbdominis2: ImageVector
     get() {
         if (_MuscleMaleAbs2 != null) {
             return _MuscleMaleAbs2!!

@@ -95,7 +95,7 @@ fun OnBoardingContent(
 
     var name by remember { mutableStateOf(profile?.name ?: "") }
     var age by remember { mutableStateOf(profile?.age?.toString() ?: "") }
-    var gender by remember { mutableStateOf(profile?.gender ?: "") }
+    var gender by remember { mutableIntStateOf(profile?.gender ?: 0) }
     var weight by remember { mutableStateOf(profile?.weight?.toString() ?: "") }
     var size by remember { mutableStateOf(profile?.size?.toString() ?: "") }
     var selectedLevel by remember {
@@ -109,10 +109,11 @@ fun OnBoardingContent(
         )
     }
     var index by remember { mutableIntStateOf(0) }
+
     val genderList = listOf(
-        stringResource(id = R.string.male),
-        stringResource(id = R.string.female),
-        stringResource(id = R.string.other)
+        R.string.male,
+        R.string.female,
+        R.string.other
     )
 
     Column(
@@ -192,7 +193,7 @@ fun OnBoardingContent(
                                 .padding(horizontal = 16.dp, vertical = 10.dp)
                         ) {
                             Text(
-                                text = g,
+                                text = stringResource(g),
                                 color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                             )
                         }
@@ -204,7 +205,7 @@ fun OnBoardingContent(
                     label = stringResource(id = R.string.next),
                     buttonColor = MaterialTheme.colorScheme.primary,
                     iconColor = MaterialTheme.colorScheme.onPrimary,
-                    onClick = { if (gender.isNotBlank()) index++ }
+                    onClick = { if (genderList.contains(gender)) index++ }
                 )
             }
 
@@ -401,7 +402,7 @@ fun OnBoardingContent(
                         val cm = size.toFloatOrNull()
                         val ageInt = age.toIntOrNull()
                         if (
-                            name.isNotBlank() && ageInt != null && gender.isNotBlank() &&
+                            name.isNotBlank() && ageInt != null && gender != 0 &&
                             kg != null && kg in 25f..400f &&
                             cm != null && cm in 100f..250f &&
                             selectedLevel != null && selectedGoal != null

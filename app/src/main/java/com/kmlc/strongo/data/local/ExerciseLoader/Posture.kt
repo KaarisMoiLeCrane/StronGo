@@ -1,0 +1,40 @@
+package com.kmlc.strongo.data.local.ExerciseLoader
+
+import com.kmlc.strongo.R
+
+enum class Posture(val resId: Int) {
+    BRIDGE(R.string.bridge),
+    HALF_KNEELING(R.string.half_kneeling),
+    HANGING(R.string.hanging),
+    HORSE_STANCE(R.string.horse_stance),
+    INVERTED(R.string.inverted),
+    ISOMETRIC_SPLIT_SQUAT(R.string.isometric_split_squat),
+    KNEE_HOVER_QUADRUPED(R.string.knee_hover_quadruped),
+    KNEE_OVER_TOE_SPLIT_SQUAT(R.string.knee_over_toe_split_squat),
+    KNEE_SUPPORTED(R.string.knee_supported),
+    KNEELING(R.string.kneeling),
+    L_SIT(R.string.l_sit),
+    MARCH(R.string.march),
+    OTHER(R.string.other),
+    PRONE(R.string.prone),
+    QUADRUPED(R.string.quadruped),
+    RUNNING(R.string.running),
+    SEATED(R.string.seated),
+    SEATED_FLOOR(R.string.seated_floor),
+    SHIN_BOX_SEATED(R.string.shin_box_seated),
+    SIDE_LYING(R.string.side_lying),
+    SIDE_PLANK(R.string.side_plank),
+    SINGLE_LEG_BRIDGE(R.string.single_leg_bridge),
+    SINGLE_LEG_STANDING(R.string.single_leg_standing),
+    SINGLE_LEG_STANDING_BENT_KNEE(R.string.single_leg_standing_bent_knee),
+    SINGLE_LEG_SUPPORTED(R.string.single_leg_supported),
+    SPLIT_SQUAT(R.string.split_squat),
+    STAGGERED_STANCE(R.string.staggered_stance),
+    STANDING(R.string.standing),
+    SUPINE(R.string.supine),
+    TALL_KNEELING(R.string.tall_kneeling),
+    TUCK_L_SIT(R.string.tuck_l_sit),
+    V_SIT_SEATED(R.string.v_sit_seated),
+    WALKING(R.string.walking),
+    WALL_SIT(R.string.wall_sit)
+}

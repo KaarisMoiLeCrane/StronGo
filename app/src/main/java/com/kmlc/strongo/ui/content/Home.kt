@@ -25,11 +25,11 @@ fun HomeContent(
     workoutTitle: String = "Chest, Shoulders, Triceps, Abdo, T'es mort tu vas voir",
     workoutDetails: String = "59 mins • 7 exercises",
     workoutImages: List<Int> = listOf(
-        R.drawable.muscle_bench_press,
+        R.drawable.exercise_barbell_bench_press,
         R.drawable.muscle_machine_press,
-        R.drawable.muscle_cable_fly,
-        R.drawable.muscle_dumbbell_press,
-        R.drawable.muscle_crunch
+        R.drawable.exercise_cable_fly,
+        R.drawable.exercise_dumbbell_press,
+        R.drawable.exercise_crunch
     ),
     onSkip: () -> Unit = {},
     onRegenerate: () -> Unit = {},

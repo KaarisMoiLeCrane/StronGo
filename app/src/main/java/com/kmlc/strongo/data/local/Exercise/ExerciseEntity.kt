@@ -10,4 +10,3 @@ data class ExerciseEntity(
     val feeling: String? = null,
     val category: String? = null
 )
-

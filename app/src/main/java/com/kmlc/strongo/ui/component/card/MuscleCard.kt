@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
@@ -61,6 +62,7 @@ fun MuscleCard(
     Card(
         modifier = modifier
             .height(height = 80.dp)
+            .clip(shape = RoundedCornerShape(size = 18.dp))
             .clickable { onClick() },
         shape = RoundedCornerShape(size = 18.dp),
         colors = CardDefaults.cardColors(containerColor = cardColor)

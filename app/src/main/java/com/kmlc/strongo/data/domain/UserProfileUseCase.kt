@@ -4,6 +4,25 @@ import com.kmlc.strongo.R
 import com.kmlc.strongo.data.local.UserProfile.UserProfileEntity
 
 class TreatUserProfile {
+    val genderList = listOf(
+        R.string.male,
+        R.string.female,
+        R.string.other
+    )
+
+    val levelList = listOf(
+        R.string.beginner,
+        R.string.intermediate,
+        R.string.advanced
+    )
+
+    val goalList = listOf(
+        R.string.gain_strength,
+        R.string.gain_muscle,
+        R.string.be_in_shape,
+        R.string.lose_weight
+    )
+
     fun execute(rawList: UserProfileEntity?): UserProfileEntity? {
         // Example: filter, map, sort, etc.
         return rawList
@@ -13,15 +32,10 @@ class TreatUserProfile {
         return profile != null
                 && profile.name.isNotBlank()
                 && profile.age in 15..120
-                && profile.gender.isNotBlank()
+                && genderList.contains(profile.gender)
                 && profile.weight in 25f..400f
                 && profile.size in 100f..250f
-                && profile.level != R.string.beginner
-                && profile.level != R.string.intermediate
-                && profile.level != R.string.advanced
-                && profile.goal != R.string.gain_strength
-                && profile.goal != R.string.gain_muscle
-                && profile.goal != R.string.be_in_shape
-                && profile.goal != R.string.lose_weight
+                && levelList.contains(profile.level)
+                && goalList.contains(profile.goal)
     }
 }
