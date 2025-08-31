@@ -17,6 +17,7 @@ import com.kmlc.strongo.ui.component.utils.StaticGrid
 import com.kmlc.strongo.ui.component.view.IconClass
 
 data class MuscleMenuItem(
+    val id: Int,
     val label: String,
     val icon: IconClass,
     val layer: ImageVector? = null,

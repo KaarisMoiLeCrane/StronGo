@@ -2,6 +2,10 @@ package com.kmlc.strongo.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -107,13 +111,23 @@ fun WorkoutsScreen(navController: NavController, selectedIndex: Int) {
     ) {
         val userProfileViewModel: UserProfileViewModel = provideUserProfileViewModel()
 
+        val context = LocalContext.current
+        val exercisesJson by remember {
+            mutableStateOf(
+                context.resources.openRawResource(R.raw.exercises)
+                    .bufferedReader()
+                    .use { it.readText() }
+            )
+        }
+
         GenericLoader(
             flow = userProfileViewModel.profile,
             loading = userProfileViewModel.loading,
             onLoaded = { profile ->
                 WorkoutsContent(
                     navController = navController,
-                    female = userProfileViewModel.profile.collectAsState().value?.gender == R.string.female
+                    female = userProfileViewModel.profile.collectAsState().value?.gender == R.string.female,
+                    exercisesJson = exercisesJson
                 )
             },
             onEmpty = {
